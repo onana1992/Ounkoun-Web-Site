@@ -1,0 +1,186 @@
+<div ng-controller="InscriptionCtrl" id="inscription"  style="margin-top:40px;">
+  <div class="container">
+    <div class="col-lg-offset-2 col-lg-8" style="border: 1px solid gray;">
+      <div class="col-lg-12">
+          <h4  style="height:35px;margin-top:20px; font-size: 15px; margin-bottom: 30px; border-bottom:1px solid gray;">CREER UN NOUVEAU COMPTE
+          </h4>
+      </div> 
+
+      <div class="loadingPage" ng-show="isLoading">
+        <div class="col-lg-12" style="margin-top:40px;">
+          <p style="text-align:center; font-size:16px; color:gray;font-style:italic;">Veuillez patienter, creation du compte en cours...
+          </p>
+          <p style="margin-top:50;text-align:center;">
+            <img src="assets/images/loading.gif">
+          </p>
+        </div>
+      </div>
+
+      <form ng-show="!isLoading"  name="myForm" ng-submit="creerUtilisateur()" novalidate class="form-horizontal formulaire" style="padding-top:0px; font-size:14px; margin-left:10px;">
+        <div ng-show="infoGuide" class=" col-lg-12 message-ruban" style="background-color:rgba(0,0,0,0.7); height:50px; padding-left:20px;padding-left:20px;margin-bottom:20px;">
+
+          <div class="header row" style="padding-right:5px;padding-top:5px;" > <span class="pull-right" style="border-radius:50%;width:15px;height:15px;background-color:#416998;display: inline-block;text-align:center;font-size:12px; color:white";><p ng-click="closeInfoGuide()" style="margin-top:-2px;">x</p></span>
+          </div>
+          <div class="mesg" style="color:white;margin-bottom:10px; height:100px;">
+            <p style="text-align:center;font-size:16px; height:100px;font-style:italic;">  Veuillez remplir le formulaire suivant pour creer un nouveau compte
+            </p>
+            <br>
+          </div>
+          </div><br>
+
+          <div ng-show="infoEchec" class=" col-lg-12 message-ruban" style="background-color:rgba(0,0,0,0.7); height:60px; padding-left:20px;padding-left:20px;margin-bottom:20px;">
+              <div class="header row" style="padding-right:5px;padding-top:5px;" > <span class="pull-right" style="border-radius:50%;width:15px;height:15px;background-color:#416998;display: inline-block;text-align:center;font-size:12px; color:white";><p ng-click="closeInfoEchec()"  style="margin-top:-2px;">x</p></span>
+              </div>
+              <div class="mesg" style="color:red;margin-bottom:10px; height:60px;font-style:italic;">
+                <p style="text-align:center;font-size:16px; height:60px;">  Compte deja existant avec l'email ou le numero de telephone utiliser.Veuillez le changer
+                </p>
+                <br>
+              </div>
+          </div><br>
+                  
+                 
+          <div class="form-group">
+            <span style="font-style:italic;" class="control-label col-lg-3" for="nom">Nom<sup>*</sup></span>
+              <div class="col-lg-8">
+                <input type="text" name="nom" ng-model="nom" class="form-control no-radius" id="nom" placeholder="Entrez votre nom" ng-minlength="2" required>
+                <div class="error" ng-show="myForm.nom.$invalid && myForm.nom.$dirty">
+                  <span style="font-style:italic;" ng-show="myForm.nom.$error.required">
+                          Entrer une valeur
+                  </span>
+                  <span style="font-style:italic;" ng-show="myForm.nom.$error.minlength">
+                          Entrer un nom de 2 caractere au moins
+                  </span>
+                </div>
+              </div>
+          </div>
+
+          <div class="form-group">
+            <span style="font-style:italic;"  class="control-label col-lg-3" for="prenom">Prenom*</span>
+              <div class="col-lg-8">
+                <input name="prenom" ng-model="prenom" type="input" class="form-control no-radius" id="prenom" placeholder="Entrez votre prenom" ng-minlength="2" required>
+                <div class="error" ng-show="myForm.prenom.$invalid && myForm.prenom.$dirty">
+                  <span style="font-style:italic;" ng-show="myForm.prenom.$error.required">
+                          Entrer une valeur
+                  </span>
+                  <span style="font-style:italic;" ng-show="myForm.prenom.$error.minlength">
+                          Entrer un nom de 2 caractere au moins
+                  </span>
+                </div>
+              </div>
+          </div>
+
+          <div class="form-group">
+            <span style="font-style:italic;" class="control-label col-lg-3" for="sexe">Sexe<sup>*</sup></span>
+            <div class="col-lg-8">
+              <select name="sexe" class="form-control no-radius" ng-model="sexe" id="sexe" required>
+                        <option value="H">homme</option>
+                        <option value="F">Femme</option>
+              </select>
+              <div class="error" ng-show="myForm.sexe.$invalid && myForm.sexe.$dirty">
+                <span ng-show="myForm.sexe.$error.required">
+                          Entrer une valeur 
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <span style="font-style:italic;" class="control-label col-lg-3" for="sexe">Date de naissance<sup>*</sup></span>
+            <div class="col-lg-8">
+              
+              <div class=" row col-lg-4" style="margin-right:30px;">
+                <select name="jour" ng-model="jour" class="form-control no-radius" id="sexe" value="jour" required>
+                  <option ng-repeat="i in tabJour" value={{i}}>{{i}}</option>     
+                </select>
+                <span style="font-style:italic;">Jour(JJ)</span>
+              </div>
+              <div class=" row col-lg-4" style="margin-right:30px;">
+                <select name="mois" ng-model="mois" class="form-control no-radius" id="sexe" value="jour" required>
+                  <option ng-repeat="i in tabMois" value={{i}}>{{i}}</option>
+                </select>
+                <span style="font-style:italic;">Mois(MM)</span>
+              </div>
+              <div class=" row col-lg-4 pull-right" >
+                <select name="anne" ng-model="annee"  class="form-control no-radius" id="sexe" value="jour" required>
+                  <option ng-repeat="i in tabAnne" value={{i}}>{{i}}</option>
+                </select>
+                <span style="font-style:italic;">Anne(AAAA)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <span style="font-style:italic;" class="control-label col-lg-3" for="login">Email ou numero de telephone <sup>*</sup>
+            </span>
+            <div class="col-lg-2" style="margin-right:0px;">
+                <input name="indicatif"  class="form-control no-radius" id="sexe" value="+237" disabled="true">    
+            </div>
+            <div class="col-lg-6">
+              <input type="input" name="login" ng-pattern="matchPatternLogin" ng-model="login" class="form-control no-radius" id="login" placeholder="Entrez votre email ou votre numero de telephone" required>
+                <div class="error" ng-show="myForm.login.$invalid && myForm.login.$dirty">
+                  <span ng-show="myForm.login.$error.required">
+                      Entrer une valeur
+                  </span>
+                  <span ng-show="myForm.login.$error.pattern">
+                      Entrer une adresse email ou un numero de telephone valide
+                  </span>
+                </div>
+              </div>
+          </div>
+
+          <div class="form-group">
+            <span style="font-style:italic;" class="control-label col-lg-3" for="password">Mot de passe <sup>*</sup></span>
+            <div class="col-lg-8">
+              <input type="password" name="password" ng-model="password" class="form-control no-radius" id="password" placeholder="Entrez votre mote de passe" ng-minlength="6" required>
+              <div class="error" ng-show="myForm.password.$invalid && myForm.password.$dirty">
+                <span ng-show="myForm.password.$error.required">
+                          Entrer une valeur 
+                </span>
+              </div>
+              <div class="error" ng-show="myForm.password.$invalid && myForm.password.$dirty">
+                <span ng-show="myForm.password.$error.minlength">
+                  6 caractères au minimum 
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <span style="font-style:italic;" class="control-label col-lg-3" for="rePassword">confirmation du mot de passe<sup>*</sup></span>
+            <div class="col-lg-8">
+              <input type="password" name="rePassword" ng-model="rePassword"  class="form-control no-radius" id="rePassword" placeholder="Confirmer votre mot de passe" required ng-minlength="6">
+              <div class="error" ng-show="myForm.rePassword.$invalid && myForm.rePassword.$dirty">
+                <span ng-show="myForm.rePassword.$error.required">
+                  Entrer une valeur 
+                </span>
+              </div>
+              <div class="error" ng-show="password!=rePassword && myForm.rePassword.$dirty">
+                        <span >
+                          Mot de passe non identique
+                        </span>
+              </div>
+              <div class="error" ng-show="myForm.rePassword.$invalid && myForm.rePassword.$dirty">
+                <span ng-show="myForm.rePassword.$error.minlength">
+                          6 caractères au minimum 
+                </span>
+              </div>
+              </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-lg-offset-3 col-lg-10">
+                <span style="font-weight:bold;"> * Champs requis</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-lg-offset-3 col-sm-10">
+              <button type="submit" style="background-color:#EE7600; color: white;" ng-disabled="myForm.$invalid || password!=rePassword" class="btn  no-radius">Soumettre le formulaire
+              </button>
+            </div>
+          </div>
+        </form> 
+      </div>
+    </div>
+    <div ng-include="'foot/foot.html'" > </div>
+    </div>

@@ -1,0 +1,74 @@
+<div ng-controller="ActivationCompteCtrl">
+  <div  class="container inscription" style="margin-top:40px; margin-bottom:100px;">
+    <div class="col-lg-offset-2 col-lg-8" style="border: 1px solid gray;">
+      <div class="col-lg-12">
+        <h4 style="height:35px;margin-top:20px; font-size: 15px; margin-bottom: 30px; border-bottom:1px solid gray;">ACTIVATION DU COMPTE
+        </h4>
+      </div> 
+      <div class="loadingPage" ng-show="isLoading">
+        <div class="col-lg-12" style="margin-top:40px;">
+          <p style="text-align:center; font-size:16px; color:gray;font-style:italic;">veuillez patienter, activation du compte en cours...
+          </p>
+          <p style="margin-top:50;text-align:center;">
+              <img src="assets/images/loading.gif">
+          </p>
+        </div>
+      </div>
+
+      <form ng-show="!isLoading" name="myForm" ng-submit="activerCompte()" novalidate class="form-horizontal formulaire" style="padding-top:20px; font-size:14px; margin-left:10px;">
+
+        <div ng-show="infoGuide" class=" col-lg-12 message-ruban" style="background-color:rgba(0,0,0,0.7); height:60px; padding-left:20px;padding-left:20px;margin-bottom:20px;">
+          <div class="header row" style="padding-right:5px;padding-top:5px;" > <span class="pull-right" style="border-radius:50%;width:15px;height:15px;background-color:#416998;display: inline-block;text-align:center;font-size:12px; color:white";><p ng-click="closeInfoGuide()" style="margin-top:-2px;">x</p></span>
+          </div>
+          <div class="mesg" style="color:white;margin-bottom:10px; height:200px;">
+            <p style="text-align:center;font-size:16px; height:;font-style:italic;">  Veuillez entrer votre code secret recu par email ou par sms pour activer votre compte 
+            </p>
+            <br/>
+          </div>
+        </div><br/>
+
+        <p style="text-align:center; font-size:14px;">Vous disposer de <span style="font-weight:bold;" ng-bind="counter"></span> secondes pour activer votre compte
+        </p>
+
+        <div ng-show="infoEchec" class=" col-lg-12 message-ruban" style="background-color:rgba(0,0,0,0.7); height:60px; padding-left:20px;padding-left:20px;margin-bottom:20px;">
+            <div class="header row" style="padding-right:5px;padding-top:5px;" > <span class="pull-right" style="border-radius:50%;width:15px;height:15px;background-color:#416998;display: inline-block;text-align:center;font-size:12px; color:white";><p ng-click="closeInfoEchec()"  style="margin-top:-2px;">x</p></span>
+            </div>
+            <div class="mesg" style="color:red;margin-bottom:10px; height:100px;font-style:italic;">
+              <p style="text-align:center;font-size:16px; height:100px;">  Le code que vous avez inscrit ne correspond pas! Veuillez verifier votre code. 
+              </p>
+              <br/>
+            </div>
+        </div><br>
+
+        <div class="form-group">
+          <span class="control-label col-lg-3" for="nom">votre code secret<sup>*</sup></span>
+            <div class="col-lg-8">
+              <input type="text" name="code" ng-model="code" class="form-control no-radius" id="code" placeholder="Entrez votre code" ng-minlength="2" required>
+                <div class="error" ng-show="myForm.code.$invalid && myForm.code.$dirty">
+                  <span ng-show="myForm.code.$error.required">
+                    entrer une valeur
+                  </span>
+                  <span ng-show="myForm.code.$error.minlength">
+                    entrer un nom de 2 caractere au moins
+                  </span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="form-group">
+          <div class="col-lg-offset-3 col-sm-10">
+            <button type="submit" style="background-color:#EE7600; color: white;" ng-disabled="myForm.$invalid" class="btn  no-radius">Activer  le compte
+            </button>
+          </div>
+        </div>
+      </form>   
+    </div>
+  </div>
+</div>
+
+  
+
+
+  
+
+

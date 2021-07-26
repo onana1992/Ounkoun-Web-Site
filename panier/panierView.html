@@ -1,0 +1,151 @@
+<div  ng-controller="PanierCtrl" id="panier" style="">
+  <div class="container" style="min-height:600px;">
+    
+    <div class="loadingPage" ng-show="isLoading">
+      <div class="col-lg-12" style="margin-top:40px;">
+        <p style="text-align:center; font-size:16px; color:gray;font-style:italic;">Veuillez patienter, chargement des donnees...</p>
+        <p style="margin-top:50;text-align:center;">
+          <img src="assets/images/loading.gif">
+        </p>
+      </div>
+    </div>
+
+    <div class="content" ng-show="!isLoading">
+      <div  class="row" >
+          <div class="col-lg-12" style="margin-top:10px;">
+            <span style="color:gray; font-size:12px;"><a style="color:gray;" href="" class="links">Accueil</a></span><span   class="glyphicon glyphicon-chevron-right " style=" font-size:8px; margin-left:5px; margin-right:5px; color:gray;"></span><span style="font-size:12px;"><span style="color:black; font-weight:bold;"  class="links">Mon panier</span></span>
+          </div>
+      </div>
+      <div class="row" style="margin-top:10px;">
+        <div class="col-lg-12">
+          <div class=" row">
+            <div class="col-lg-12">
+              <h4  style="font-size:14px; height:30px; border-bottom:1px solid gray; font-weight:bold;">MON PANIER</h4>
+              <p style="text-align:center;" class="pull-right" ><a href="/"  style="color:white;border-color:white;font-weight:bold; background-color:#EE7600;" type="button" class="btn  btn-sm    no-radius">Poursuivre les achats</a></p>
+              <br/>
+           </div>
+          </div>
+
+          <div class="messageEmpty" ng-show="estVide">
+              <div class="col-lg-12" style="margin-top:10px;">
+                <p style="text-align:center; font-size:16px; color:gray;font-style:italic;">Votre panier est vide, veuillez poursuivre vos achat et ajouter des produits dans votre panier!!!</p>
+              </div>
+          </div>
+
+          <div class="row" ng-show="!estVide">
+            <div class="col-lg-12">
+              <table class="table  table-striped table-condensed">
+                <thead style="">
+                    <tr style="text-align:center;">
+                      <th style="text-align:center;">Article</th>
+                      <th style="text-align:center;">quantité</th>
+                      <th style="text-align:center;">prix unitaire</th>
+                      <th style="text-align:center;">sous-total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr id="panierDetail" ng-repeat="item in panierDetail">
+                
+                      <td width="60%">
+                          <div class="col-lg-2">
+                          <img src="assets/images/loading.gif"  ng-src="{{baseUrl}}image/{{item.product.idImage}}"  width="60" height="60">
+                          </div>
+                          <div  class="col-lg-10"  style="margin-top:5px;"><p style="font-size:14px; font-weight:bold;" ng-class="item.number.val<=item.product.quantity? 'avaible':'notAvaible' ">{{item.product.name}}</p> <p style="margin-top:-10px; font-size:10px;"><a style="margin-right:10px;"  data-toggle="modal"  data-target="#deleteProductDetail" href="" ng-click="selectArticle(item.product)" >Supprimer</a><a style="margin-right:10px;" href="produit.php?nom={{item.product.name}}" ng-click="deleteProduct(item.product)">Voir le produit </a></p>
+                          </div>
+                      </td>
+                      <td align="center" class="quantity" > 
+                        <select  style=" width:70px;" class="form-control no-radius" id="quantity"   ng-model="item.number" ng-init="item.number=tabValuesDetailNumber[$index][item.number-1]"  ng-change="modifQuantityDetail(item)"  ng-options="option.val for option in tabValuesDetailNumber[$index]">
+                        </select> 
+                        <div ng-show="!item.number.val" style="color:red;font-size:10px;" >quantite indisponible: veuiller choisir une quantite disponible 
+                        </div> 
+                      </td>
+                      <td align="center" class="prix-unitaire">
+                         <p ng-show="!item.product.retailSale.isInPromotion"><span style="font-size:13px; font-weight:bold;">{{item.product.retailSale.price}}FCFA</span>
+                         </p>
+                         <p ng-show="item.product.retailSale.isInPromotion">
+                          <span style="font-size:13px; font-weight:bold;">{{item.product.retailSale.promotionalPrice}}FCFA</span><sub > <span style="font-size:10px;text-decoration:line-through;">{{item.product.retailSale.price}}FCFA</span></sub>
+                         </p>
+                      </td>
+                      <td align="center" class="sous-total">
+                        <div ng-show="item.number.val<=item.product.quantity? true:false">
+                           <p ng-show="!item.product.retailSale.isInPromotion"><span style="font-size:13px; font-weight:bold;">{{item.product.retailSale.price*item.number.val}}FCFA</span>
+                           </p>
+                           <p ng-show="item.product.retailSale.isInPromotion">
+                            <span style="font-size:13px; font-weight:bold;">{{item.product.retailSale.promotionalPrice *item.number.val}}FCFA</span><sub > <span style="font-size:10px;text-decoration:line-through;">{{item.product.retailSale.price*item.number.val}}FCFA</span></sub>
+                           </p> 
+                        </div>  
+                      </td>
+                </tr>
+                
+                  </tbody>
+                <tfoot>
+                    <tr>
+                      <td colspan="4">
+                          <div class="col-lg-5">
+                            <h5>BON D'ACHAT</h5>
+                            <p style="font-size:12px">si vous avez un bon d'achat veuillez l'inserer et cliquer sur utiliser</p>
+                            <div class="input-group col-lg-8" style="margin-bottom:10px;">
+                                <input type="text" class="form-control no-radius" style="text-align:right; font-size:10px;"  placeholder="saisiser un numero de coupon" >
+                                <span class="input-group-btn">
+                                  <button  style="background-color:#EE7600; color: white;" class="btn  no-radius" type="button">Utliser</button>
+                                </span>
+                            </div>
+                          </div>
+                          <h5 class="pull-right" style="font-weight:bold;margin-right:20px;"> TOTAL: {{total}} FCFA</h5>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="4">
+                          <div class="col-lg-6">
+                            <h5  style="font-weight:bold;margin-right:20px; font-size:18px;"> TOTAL: {{total}} FCFA</h5>
+                          </div>
+                          <div class="col-lg-6 "> <button ng-click="goToCommande()" class=" pull-right btn    no-radius" style="font-size:16px; color:white;background-color:#EE7600;" 
+                            type="button"> Passer votre commande</button></div>
+                      </td>
+                    </tr>      
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      
+        <div class="modal fade" id="deleteProductDetail" role="dialog" style="margin-top:50px; 
+          color:black;">
+          <div class="modal-dialog">
+            <div class="modal-content" style="min-height:;">
+                <div class="modal-header" style="background-color:gray;text-align:center;">
+                  <button type="button" class="close" data-dismiss="modal">x</button>
+                  <h4 style="color:white" class="modal-title">Supprimer</h4>
+                </div>
+                <div class="modal-body" style="margin-top:20px;">
+                  <div class="loadingPage" ng-show="isLoading">
+                      <div class="col-lg-12" style="margin-top:0px;">
+                        <p style="text-align:center; font-size:16px; color:gray;font-style:italic;">Suppression de l'article,veuillez patienter...</p>
+                        <p style="text-align:center;">
+                            <img src="assets/images/loading.gif" height="200" width="200">
+                        </p>
+                      </div>
+                  </div>
+                  <div class="content" ng-show="!isLoading">    
+                      <p style="text-align:center; font-size:16px; color:gray;font-style:italic;">Voulez vous vraiment supprimer cet article de votre panier
+                      </p><br/>
+                      <p style="text-align:center;">
+                        <button ng-click="confirmSupprimerArticleDetail()"  style="color:white;background-color:#EE7600;" type="button" class="btn  no-radius" >Supprimer
+                        </button> 
+
+                        <button ng-click="annulerSuppressionArticleDetail()"  style="color:white;background-color:#EE7600;" type="button" class="btn    no-radius">Annuler
+                        </button>
+                      </p>
+                  </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+      
+        </div>
+    </div>
+  </div>
+  <div ng-include="'foot/foot.html'"> 
+  </div>
+  
+</div>

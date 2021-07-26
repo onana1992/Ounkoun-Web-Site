@@ -1,0 +1,76 @@
+<div ng-controller="MesCommandeCtrl" class="monCompte">
+	<div class="container" style="margin-top:20px; margin-bottom: 100px;">
+
+		<div  class="row" >
+  		<div class="col-lg-12">
+    		<span style="color:gray;">Accueil</span><span class="glyphicon glyphicon-chevron-right " style=" font-size:10px; margin-left:5px; margin-right:5px; color:gray;"></span><span style="color:black;font-weight:bold;font-size:12px;">Mes commandes</span>
+  		</div>
+    </div>
+   
+    <div class="row" style="margin-top:30px;">
+  		<div class="col-lg-12">
+    			<h4 style="height:30px;border-bottom:1px solid gray;font-size:17px; margin-bottom:20px;"> commandes</h4>
+    	</div>
+    </div>
+
+    <div class="row" >
+
+  		<div class="col-lg-3 nav-gauche">
+    		<ul class="list-unstyled">
+            <li> <a  href="profil.php"> MES INFORMATIONS PERSONNELLE</a></li>
+            <li> <a href="password.php"> CHANGER MON MOT DE PASSE</a></li>
+            <li> <a href="adresse.php"> MON ADRESSE </a></li>
+            <li> <a href="favoris.php">MES FAVORIS</a> </li>
+            <li> <a style="color:#EE7600;" href="mesCommande.php">MES COMMANDES</a> </li>
+        </ul>
+  		</div>
+
+      <div class="col-lg-8">
+        <div class="loadingPage" ng-show="isLoading">
+          <div class="col-lg-12" style="margin-top:40px;">
+          <p style="text-align:center; font-size:16px; color:gray;font-style:italic;">veuillez patienter, chargement des donnees...</p>
+          <p style="margin-top:50;text-align:center;">
+            <img src="assets/images/loading.gif">
+          </p>
+          </div>
+        </div>
+        <div class="content" ng-show="!isLoading" style="margin-bottom: 20px;" >
+          <div class="row">
+            <div ng-show="commands.length==0" class="col-lg-12" style="text-align: center;color: gray; ">Aucune commande passée </div>
+          </div>
+          <table ng-show="commands.length>0" style="text-decoration: none;" class="table table-bordered table-striped table-condensed" ng-show="!estVide">
+              <thead >
+                <tr ><th colspan="5" style="text-align: center;">{{number}} commandes passés</th></tr>
+                <tr >
+                  <th style="text-align:center;">N° de la Commande</th>
+                    <th style="text-align:center;">Date de la commande</th>
+                    <th style="text-align:center;">Payée</th>
+                    <th style="text-align:center;">Livrée</th>
+                    <th ></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="command in commands" style="background-color: transparent;">
+                  <td align="center">
+                    {{command.reference}}
+                  </td>
+                  <td align="center" >
+                      {{command.dateCreation.date| limitTo:10| date :  "dd.MM.y" }}    
+                  </td>
+                  <td align="center" class="prix">
+                    <span ng-show="command.isPaided"> Oui</span><span ng-show="!command.isPaided"> Non</span>
+                 
+                  </td>
+                  <td align="center">
+                    <span ng-show="command.isShipped"> Oui</span><span ng-show="!command.isShipped">Non</span>
+                  </td>
+
+                  <td align="center">
+                    <a href="commandeDetail.php?reference={{command.reference}}">Voir detail</a>
+                  </td>  
+                </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>

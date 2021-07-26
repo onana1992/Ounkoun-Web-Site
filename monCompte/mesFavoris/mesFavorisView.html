@@ -1,0 +1,139 @@
+<div ng-controller="FavoriteCtrl" class="monCompte" >
+	<div class="container"  style="margin-top:20px;min-height:500px;  margin-bottom:40px;">
+    
+    <div class="loadingPage" ng-show="isLoading">
+      <div class="col-lg-12" style="margin-top:40px;">
+      <p style="text-align:center; font-size:16px; color:gray;font-style:italic;">veuillez patienter, chargement des donnees...</p>
+      <p style="margin-top:50;text-align:center;">
+      <img src="assets/images/loading.gif">
+      </p>
+      </div>
+    </div>
+
+    <div ng-show="!isLoading">
+
+      <div ng-show="showMessage_ajout_detail"  class="showMessage_ajout_detail" style="margin-top:10px;">
+        <div class="col-lg-12 message-pan" style="background-color:rgba(0,0,0,0.7);color:white;text-align:center;">
+          <p style="margin-bottom:10px;">le produit {{selectedProduct.name}} a été ajouté dans le panier avec succès </p>
+          <p style="text-align:center;"><a href="panier.php"  style="color:white;background-color:#EE7600;" type="button" class="btn  btn-sm no-radius">finaliser l'achat</a></p>
+        </div>
+      </div>
+
+      <div ng-show="showMessage_ajout_detail_denied"  class="showMessage_ajout_detail" style="margin-top:10px;">
+          <div class="col-lg-12 message-pan" style="background-color:rgba(0,0,0,0.7);color:white">
+            <p style=" color:red;">Desole,le produit {{selectedProduct.name}} n'est plus disponible en stock, donc ne peut etre ajouté dans le panier</p>
+          </div>
+      </div>
+
+      <div  class="row" >
+            <div class="col-lg-12">
+              <span style="color:gray;font-size:12px;">Accueil</span><span class="glyphicon glyphicon-chevron-right " style=" font-size:10px; margin-left:5px; margin-right:5px; color:gray;"></span><span style="color:black;font-weight:bold;font-size:12px;">Mes produits favoris</span>
+            </div>
+      </div> 
+
+	   
+      <div class="row" style="margin-top:20px;">
+          <div class="col-lg-12">
+              <h4 style="height:30px;border-bottom:1px solid gray;font-size:17px; margin-bottom:20px;">Mon compte</h4>
+            </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-3 nav-gauche">
+          <ul class="list-unstyled">
+                <li> <a href="profil.php"> MES INFORMATIONS PERSONNELLE</a></li>
+                <li> <a href="password.php"> CHANGER MON MOT DE PASSE</a></li>
+                <li> <a href="adresse.php"> MON ADRESSE </a></li>
+                <li> <a  style="color:#EE7600;" href="favoris.php">MES FAVORIS</a> </li>
+                <li><a href="mesCommande.php">MES COMMANDES</a> </li>
+            </ul>
+        </div>
+
+        <div class="col-lg-9">
+          <h4 style="height:30px; border-bottom:1px solid gray;font-size:16px; margin-bottom:20px;">Mes produits favoris
+          </h4>
+          <div class="messageEmpty" ng-show="estVide">
+            <div class="col-lg-12" style="margin-top:10px;">
+              <p style="text-align:center; font-size:16px; color:gray;font-style:italic;">Vous n'avez pas de produits dans vos favoris!!!
+              </p>
+            </div>
+          </div>
+          <table class="table table-bordered table-striped table-condensed" ng-show="!estVide">
+            <thead >
+              <tr >
+                <th style="text-align:center;">Produit</th>
+                  <th style="text-align:center;">Date d'ajout</th>
+                  <th style="text-align:center;">prix et disponibilite</th>
+                  <th ></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in favorites">
+                <td width="40%">
+                  <div class="col-lg-3">
+                  <img src="assets/images/loading.gif"  ng-src="{{baseUrl}}image/{{item.product.idImage}}"  width="50" height="50">
+                  </div>
+                    <div class="col-lg-9" style="margin-top:5px;" class="nom"><p style="font-size:14px; font-weight:bold;">{{item.product.name}}</p> <p style="margin-top:-10px; font-size:10px;"><a   href=""  data-toggle="modal"  data-target="#deleteProductDetail" href="" ng-click="selectArticle(item.product)">Supprimer</a> <a style="margin-left:10px;" href="produit.php?nom={{item.product.name}}"  >Voir le produit</a></p>
+                  </div>
+                </td>
+                <td align="center" class="date">
+                    {{item.dateAjout.date|limitTo:10}}       
+                </td>
+                <td align="center" width="40%" class="prix">
+                      <span style="color:red;font-size:12" ng-show="item.product.quantity==0">(Epuiser)
+                      </span>
+                      <p ng-show="!item.product.retailSale.isInPromotion"><span style="font-size:13px; font-weight:bold;">{{item.product.retailSale.price}}FCFA</span>
+                      </p>
+                      <p ng-show="item.product.retailSale.isInPromotion">
+                          <span style="font-size:13px; font-weight:bold;">{{item.product.retailSale.promotionalPrice}}FCFA</span><sub > <span style="font-size:10px;text-decoration:line-through;">{{item.product.retailSale.price}}FCFA</span></sub>
+                      </p>
+                </td>
+                <td align="center">
+                      <button  style="margin-top:20px;background-color:#EE7600;color: white;"  ng-click="acheterEndetail(item.product)"   ng-disabled="item.product.quantity==0" type="button" class=" btn btn-sm  no-radius">Ajouter dans le panier
+                      </button>
+                </td>     
+              </tr>
+            </tbody>
+          </table>
+        </div> 
+      </div>
+    </div>
+  </div>
+  <div  ng-include="'views/foot.html'" ng-show="!isLoading" > 
+  </div>
+  <div class="modal fade" id="deleteProductDetail" role="dialog" style="margin-top:50px; 
+          color:black;">
+          <div class="modal-dialog">
+            <div class="modal-content" style="min-height:;">
+                <div class="modal-header" style="background-color:gray;text-align:center;">
+                  <button type="button" class="close" data-dismiss="modal">x</button>
+                  <h4 style="color:white" class="modal-title">Supprimer un article de votre</h4>
+                </div>
+                <div class="modal-body" style="margin-top:20px;">
+                  <div class="loadingPage" ng-show="isLoading">
+                      <div class="col-lg-12" style="margin-top:0px;">
+                        <p style="text-align:center; font-size:16px; color:gray;font-style:italic;">Suppression de l'article,veuillez patienter...</p>
+                        <p style="text-align:center;">
+                            <img src="assets/images/loading.gif" height="200" width="200">
+                        </p>
+                      </div>
+                  </div>
+                  <div class="content" ng-show="!isLoading">    
+                      <p style="text-align:center; font-size:16px; color:gray;font-style:italic;">Voulez vous vraiment supprimer cet article de votre panier
+                      </p><br/>
+                      <p style="text-align:center;">
+                        <button ng-click="confirmSupprimerArticleDetail()"  style="color:white;font-weight:bold; background-color:#EE7600;color: white;" type="button" class="btn no-radius" >Supprimer</button> 
+
+                        <button ng-click="annulerSuppressionArticleDetail()"  style="color:white;font-weight:bold; background-color:#EE7600;" type="button" class="btn no-radius">Annuler
+                        </button>
+                      </p>
+
+
+                    </div>
+                  </div>
+            </div>
+          </div>
+  </div>
+
+  </div>
+

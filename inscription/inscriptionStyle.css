@@ -1,0 +1,20 @@
+
+#inscription form .ng-invalid.ng-dirty { border-color: lightpink; }
+
+/*.inscription form .ng-valid.ng-dirty { background-color: lightgreen; }*/
+/*#inscription .summary.ng-invalid { color: red; font-weight: bold; }
+.formulaire.inscription.summary.ng-valid { color: green; }*/
+
+#inscription form .error {
+	color: red;
+	 font-style:italic;
+	  font-size:12px;
+ }
+
+
+.loadingPan p{
+	text-align:center;
+	font-size:20px;
+	border:solid 1px gray;
+	background-color: #eee;
+}

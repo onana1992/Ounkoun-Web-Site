@@ -1,0 +1,125 @@
+<div ng-controller="CommandeDetailCtrl" class="monCompte">
+	<div class="container" style="margin-top:20px; min-height:800px;">
+
+		<div  class="row" >
+  		<div class="col-lg-12">
+    		<span style="color:gray;">Accueil</span><span class="glyphicon glyphicon-chevron-right " style=" font-size:10px; margin-left:5px; margin-right:5px; color:gray;"></span><span style="color:black;font-weight:bold;font-size:12px;">Mes commandes</span>
+  		</div>
+    </div>
+   
+    <div class="row" style="margin-top:30px;">
+  		<div class="col-lg-12">
+    			<h4 style="height:30px;border-bottom:1px solid gray;font-size:17px; margin-bottom:20px;"> commande {{actualCommand.reference}}</h4>
+    	</div>
+    </div>
+
+    <div class="row">
+  		<div class="col-lg-3 nav-gauche">
+    		<ul class="list-unstyled">
+            <li> <a  href="profil.php"> MES INFORMATIONS PERSONNELLE</a></li>
+            <li> <a href="password.php"> CHANGER MON MOT DE PASSE</a></li>
+            <li> <a href="adresse.php"> MON ADRESSE </a></li>
+            <li> <a href="favoris.php">MES FAVORIS</a> </li>
+            <li> <a style="color:#EE7600;" href="mesCommande.php">MES COMMANDES</a> </li>
+        </ul>
+  		</div>
+
+      <div class="col-lg-8">
+        
+        <div class="content">
+          <table class="table table-bordered table-striped table-condensed" ng-show="!estVide">
+              <tbody>
+              <tr style="background-color: transparent;">
+                <th>N° de la commande</th>
+                <td>{{actualCommand.reference}}</td>
+              </tr>
+
+              <tr style="background-color: transparent;">
+                <th>Date de la commande</th>
+                <td>  {{actualCommand.dateCreation.date| limitTo:10}} </td>
+              </tr>
+
+              <tr style="background-color: transparent;">
+                <th>Payée</th>
+                <td>   <span ng-show="actualCommand.isPaided"> Oui</span><span ng-show="!actualCommand.isPaided"> Non</span> </td>
+              </tr>
+
+              <tr style="background-color: transparent;">
+                <th>Livrée</th>
+                <td>   <span ng-show="actualCommand.isShipped"> Oui</span><span ng-show="!actualCommand.isShipped">Non</span> </td>
+              </tr>
+
+              <tr style="background-color: transparent;" ng-show="actualCommand.livraison.type==1">
+                <th>Adresse de la livraison </th>
+                <td>  
+                  <ul>
+                    <li>Receptionneur:{{actualCommand.livraisonAdress.name }} {{actualCommand.livraisonAdress.firstName }} </li>
+                    <li>Tel 1:{{actualCommand.livraisonAdress.tel1}} </li>
+                    <li>Tel 2: {{actualCommand.livraisonAdress.tel2}} </li>
+                    <li>Region: {{actualCommand.livraisonAdress.region}}</li>
+                    <li>Ville: {{actualCommand.livraisonAdress.town}} </li>
+                    <li>Adresse: {{actualCommand.livraisonAdress.adresse}}</li>
+                  </ul>
+                 </td>
+
+              </tr>
+
+              <tr style="background-color: transparent;" ng-show="actualCommand.livraison.type==2">
+                <th>Point de livraison  </th>
+                <td> 
+                  <ul>
+                    <li>Relais:{{actualCommand.relais.nom}}  </li>
+                    <li>quartier:{{actualCommand.relais.quartier}} </li>
+                    <li>emplacement: {{actualCommand.relais.emplacement}} </li>
+                  </ul>
+                 </td>
+
+              </tr>
+
+
+              <tr style="background-color: transparent;">
+                <th>Articles</th>
+                <td>  
+                <table class="table  table-striped table-condensed">
+                
+               
+                <tr style="background-color: transparent;" id="panierDetail" ng-repeat="item in actualCommand.products">
+                
+                      <td width="60%">
+                          <div class="col-lg-2">
+                          <img src="images/load3.gif"  ng-src="{{baseUrl}}image/{{item.product.idImage}}"  width="60" height="60">
+                          </div>
+                          <div  class="col-lg-10"  style="margin-top:5px;"><p style="font-size:14px; font-weight:bold;">  {{item.product.name}}</p> 
+                            <p style="margin-top:-10px; font-size:14px;">
+                              {{item.quantity}} x {{item.price}} FCFA = {{item.quantity * item.price}} FCFA
+                            </p>
+                          </div>
+                      </td>
+                </tr>
+                
+                </table>
+                </td>
+              </tr>
+              
+              <tr style="background-color: transparent;">
+                <th>Livraison</th>
+                <td >
+                  <ul>
+                    <li ng-show="actualCommand.livraison.type==1">Type : Domicile</li>
+                    <li ng-show="actualCommand.livraison.type==2">Type : Expedition</li>
+                    <li>Delais : {{actualCommand.livraison.delais.date | limitTo:10}} </li>
+                    <li>Prix : {{actualCommand.livraison.price}} </li>
+                  </ul>
+                </td>
+              </tr>
+
+              <tr style="background-color: transparent;">
+                <th>Total</th>
+                <td align="center">{{total(actualCommand) }} FCFA + {{actualCommand.livraison.price}} FCFA = {{total(actualCommand) + actualCommand.livraison.price}} FCFA</td>
+              </tr>
+
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>

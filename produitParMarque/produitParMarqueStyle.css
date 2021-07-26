@@ -1,0 +1,203 @@
+#produitsParMarque .pagination li a{
+height : 25px;
+font-size: 12px;
+margin-right: 5px;
+border-radius: 0px;
+}
+
+#produitsParMarque .no-radius{
+  border-radius: 0 !important}
+
+#produitsParMarque .panneau{
+  width: 220px;
+  margin-right: 10px; 
+  padding: 0 0 0 0;
+  border-color:transparent;
+}
+
+#produitsParMarque .panneau:hover{
+   /*border-color:gray;*/
+}
+
+#produitsParMarque .panneau .panel-body .transparent-pan-detail{
+  position: absolute;
+  z-index: 99;
+  background-color: rgba(0,0,0,0.7);
+  display: block;
+  left: 0px;
+  bottom:0px;
+  width: 100%;
+  height: 0px;
+  overflow: hidden;
+  transition: all 0.5s;
+
+}
+
+#produitsParMarque .panneau .panel-body:hover > .transparent-pan-detail{
+ height:37%;
+}
+
+
+
+#produitsParMarque .panneau .panel-body .transparent-pan-detail-buyWithMe{
+  position: absolute;
+  z-index: 99;
+  background-color: rgba(0,0,0,0.7);
+  display: block;
+  left: 0px;
+  bottom:0px;
+  width: 100%;
+  height: 0px;
+  overflow: hidden;
+  transition: all 0.5s;
+
+}
+
+#produitsParMarque .panneau .panel-body:hover > .transparent-pan-detail-buyWithMe{
+ height:47%;
+}
+
+
+#produitsParMarque .links {
+    color: black;
+    text-decoration: none;
+}
+
+
+#produitsParMarque .links:visited {
+      color: black;
+    text-decoration: none;
+
+}
+
+#produitsParMarque .links:active {
+     color: black;
+    text-decoration: none;   
+}
+
+#produitsParMarque .links:hover {
+     color: black;
+    text-decoration: none;
+}
+
+#produitsParMarque .message-pan{
+    height: 100px;
+    background-color: #b5cabd;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 16px;
+}
+
+#produitsParMarque .nav-gauche a {
+    color: gray;
+    text-decoration: none;
+}
+
+/*************************style slider*************************/
+.rzslider .rz-bar-wrapper{
+ 
+width: 80%;
+height: 20px;
+}
+.rzslider .rz-pointer{
+  height: 20px;
+  width: 20px;
+  top: -8px;
+}
+
+.rzslider .rz-pointer::after {
+    position: absolute;
+    top: 7px;
+    left: 6px;
+}
+
+.rz-bubble{
+  font-size: 10px;
+}
+
+.rating{
+  color: #a9a9a9;
+  margin: 0;
+  padding: 0;
+}
+
+ul.rating {
+  display: inline-block;
+}
+
+.rating li {
+  list-style-type: none;
+  display: inline-block;
+  padding: 1px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  font-size:18px;
+}
+
+.rating .filled {
+  color: #21568b;
+}
+
+
+.divider1{
+    position: relative;
+    width: 100%;
+    height: 1px;
+    top:70px;
+    background: #ddd;
+    margin: 30px auto;
+}
+.divider1:after{
+  content: 'Notation du produit';
+  width: 150px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 15px;
+  font-size: 16px;
+  color: #666;
+  background: #fff;
+  border:1px solid #f0f0f0;
+  display: block;
+  position: absolute;
+  top: 70%;
+  left: 40%;
+  margin-top: -15px;
+  margin-left: -15px;
+  text-align: center;
+}
+
+.divider2{
+    position: relative;
+    width: 100%;
+    height: 1px;
+    top:200px;
+    background: #ddd;
+    margin: 30px auto;
+}
+.divider2:after{
+  content: 'Commenter le produit';
+  width: 200px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 15px;
+  font-size: 16px;
+  color: #666;
+  background: #fff;
+  border:1px solid #f0f0f0;
+  display: block;
+  position: absolute;
+  top: 70%;
+  left: 35%;
+  margin-top: -15px;
+  margin-left: -15px;
+  text-align: center;
+}
+
+.light{
+  color:#EE7600;
+}
+
+.no-light{
+  color:gray;
+}

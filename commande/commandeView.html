@@ -1,0 +1,697 @@
+<div style="background-color: #f5f5f5; min-height:800px;">
+  <div ng-controller="CommandeCtrl" id="commande" >
+    <div class="container">
+      <div  class="row" style="margin-top:10px;">
+        <div class="col-lg-12">
+          <span style="color:gray; font-size:12px;"><a style="color:gray;" href="/" class="links">Accueil</a></span><span   class="glyphicon glyphicon-chevron-right " style=" font-size:8px; margin-left:5px; margin-right:5px; color:gray;"></span><span style="font-size:12px;"><span style="color:black; font-weight:bold;" class="links">validation de la commande</span></span>
+        </div>
+      </div>
+      
+      <div class=" row loadingPage" ng-show="isLoading">
+        <div class="col-lg-12" style="margin-top:40px;">
+          <p style="text-align:center; font-size:16px; color:gray;font-style:italic;">Veuillez patienter, chargement des donnees...</p>
+          <p style="margin-top:50;text-align:center;">
+            <img src="assets/images/loading.gif">
+          </p>
+        </div>
+      </div>
+
+      <div ng-show="!isLoading" class="row" style="margin-bottom:50px;">
+        <div class="col-lg-12" style="margin-top:30px;">
+          <div class="pan-adresse-livraison" class="col-lg-12">
+            <div class="titre" style="padding: 10px 10px 10px 20px; border-bottom: 1px solid gray;" >
+              <span style="border:; border-radius:50%;width:30px;height:30px;background-color:#416998;display: inline-block;text-align:center;font-size:16px; color:white"><p style="margin-top:3px;">1</p></span>
+              <span style="font-weight:bold; margin-left:20px;font-size:12px;margin-top:3px;">VOTRE EMAIL / TELEPHONE</span> 
+              <span class="pull-right fa fa-check" style="color:green;font-size:25px;">
+              </span>
+            </div>
+            <div class="content" class="col-lg-12">
+               <p class="col-lg-12" style="font-size:14px;margin-top:20px;margin-bottom:10px;margin-left:80px;font-weight:bold;">{{userLogin}}
+               </p>
+            </div>
+          </div>
+          <div class="pan-adresse-livraison" class="col-lg-12">
+            <div class="titre" style="padding: 10px 10px 10px 20px; border-bottom: 1px solid gray;" >
+              <span style="border:; border-radius:50%;width:30px;height:30px;background-color:#416998;display: inline-block;text-align:center;font-size:16px; color:white"><p style="margin-top:3px;">2</p></span>
+              <span style="font-weight:bold; margin-left:20px;font-size:12px;margin-top:3px;">VOTRE ADRESSE</span>
+              <span ng-show="!hasConfirmAdress" class="pull-right fa fa-check" style="color:#d9d9d9;font-size:25px;">
+              </span>
+              <span ng-show="hasConfirmAdress" class="pull-right fa fa-check" style="color:green;font-size:25px;">
+                
+              </span>
+            </div>
+
+            <div class="content" class="col-lg-12">
+              <div class="no-adress row" ng-show="!hasAdress" >
+                <p style="text-decoration: italic,color:gray;text-align:center;margin-top:20px;">vous n'avez pas d'adresse de livraison veuillez ajouter une adresse de livraison!!!
+                </p>
+                <p style="text-align:center;">
+                  <button data-toggle="modal"  style="background-color:#EE7600;color: white;" data-target="#adresseForm" class="  btn no-radius" style="" type="button">Creer une adresse </button>
+                </p>  
+              </div>
+              <div class="adress row" ng-show="hasAdress && !hasConfirmAdress">
+                <div class="col-lg-8" style="text-align:left; margin-left:20px; margin-top:30px;">
+                  <table style="border: 1px solid gray;" class="table" border="1">
+                    <tr>
+                        <td style="border: 1px solid gray;">Nom</td>
+                        <td style="border: 1px solid gray;">{{adresseLivraison.name}}</td>
+                    </tr>
+
+                    <tr>
+                      <td style="border: 1px solid gray;">Prenom </td>
+                      <td style="border: 1px solid gray;">{{adresseLivraison.firstName}}</td>
+                    </tr>
+
+                    <tr>
+                      <td style="border: 1px solid gray;">Numero de telephone 1</td>
+                      <td style="border: 1px solid gray;">{{adresseLivraison.tel1}}</td>
+                    </tr>
+
+                    <tr>
+                      <td style="border: 1px solid gray;">Numero de telephone 2</td>
+                      <td style="border: 1px solid gray;">{{adresseLivraison.tel2}}</td>
+                    </tr>
+
+                    <tr>
+                      <td style="border: 1px solid gray;">Region</td>
+                      <td style="border: 1px solid gray;">{{adresseLivraison.region}}</td>
+                    </tr>
+
+                    <tr>
+                      <td style="border: 1px solid gray;">Ville</td>
+                      <td style="border: 1px solid gray;">{{adresseLivraison.town}}</td>
+                    </tr>
+
+                    <tr>
+                      <td style="border: 1px solid gray;">Adresse</td>
+                      <td style="border: 1px solid gray;">{{adresseLivraison.adresse}}</td>
+                    </tr>
+                  </table>
+                  <p  style="text-align:center;">
+                    <button type="submit" style="background-color:#EE7600;color:white;" class="btn  no-radius" ng-click="hasConfirmAdress=true;initCanHomeShipping()">Utiliser cette adresse</button>
+
+                    <button style="margin-left:20px; background-color:#EE7600; color: white;" type="submit" class="btn  no-radius" data-toggle="modal"  data-target="#adresseFormModif">Modifier votre adresse</button>
+                  </p>
+                      </div>
+              </div>
+              <div ng-show="hasConfirmAdress" class="adress-resume col-lg-12" style="">
+                <div class="col-lg-4" style="margin-left:70px; margin-top:20px;">
+                  <p style="font-weight:bold;color:black;"><span>{{adresseLivraison.name}} </span>
+                  <span> {{adresseLivraison.firstName}}</span> - <span>{{adresseLivraison.tel1}}</span>/<span>{{adresseLivraison.tel2}}</span> - <span> {{adresseLivraison.region}}</span> - <span>{{adresseLivraison.town}}</span> - <span>{{adresseLivraison.adresse}}</span></p>
+                </div>
+                <a class=" pull-right" style="margin-top:20px;cursor: pointer;" type="submit" class="btn btn-warning no-radius" ng-click="hasConfirmAdress=false; hasConfirmLivraison=false; hasConfirmCommand=false"> <i class="fas fa-pencil-alt"></i> Modifier l'adresse </a>
+              </div>
+            </div>
+          </div>
+          <div class="pan-mode-livraison" class="col-lg-12">
+            <div class="titre" style="padding: 10px 10px 10px 20px; border-bottom: 1px solid gray;" >
+               <span style="border:; border-radius:50%;width:30px;height:30px;background-color:#416998;display: inline-block;text-align:center;font-size:16px; color:white"><p style="margin-top:3px;">3</p></span>
+              <span style="font-weight:bold; margin-left:20px;font-size:12px;margin-top:3px;">MODE DE LIVRAISON</span>
+              <span ng-show="!hasConfirmLivraison" class="pull-right fa fa-check" style="color:#d9d9d9;font-size:25px;">
+              </span>
+              <span ng-show="hasConfirmLivraison" class="pull-right fa fa-check" style="color:green; font-size:25px;">
+              </span>
+            </div>
+            <div class="content col-lg-12" ng-show="hasConfirmAdress && !hasConfirmLivraison">
+              <ul style="padding-top:20px;">
+                <li style="font-weight:bold; font-size:14px;">Choix du mode de livraison</li>
+              </ul>
+              
+              <div class="col-lg-5" style="margin-left:30px; font-size:12px;">
+                <label class="radio-inline" style="font-weight:bold;">
+                  <input ng-change="livraisonChange()" ng-disabled="livraisonType=='2'" value="1" ng-model="livraison.type" type="radio" name="optlivraison" ng-checked="livraisonType=='1'"> Livraison à domicile
+                </label>
+                <p ng-show="livraisonType=='1'" style="padding-left:20px; font-weight: bold;">Delais: 24h au plus tard après la confirmation de votre commande
+                </p>
+                <p ng-show="livraisonType=='1'" style="padding-left:20px; font-weight: bold;margin-top: -10px;">Montant:{{montantLivraisonDomicile}} FCFA
+                </p>
+                <p ng-show="livraisonType=='1'"style="padding-left:20px; margin-top: -10px;">Vous serez contacter aprés la validation de votre commande pour plus de details sur les modalités de la livraison
+                </p>
+                <p ng-show="livraisonType=='2'"style="padding-left:20px;">La livraison à domicile n'est pas pour le moment possible à votre adresse, veuillez choisir un point de livraison.
+                </p>
+              </div>
+
+              <div class="col-lg-6" style="margin-left:30px; font-size:12px;">
+                <label class="radio-inline" style="font-weight:bold;">
+                  <input value="2" ng-change="livraisonChange()" ng-model="livraison.type" ng-checked="livraisonType=='2'" type="radio"   name="optlivraison">Livraison au point de relais 
+                </label>
+                <p ng-show="relaisPoint!=null" style="padding-left:20px; font-weight: bold;"> Point de relais: {{relaisPoint.nom}} - {{relaisPoint.emplacement}}
+                </p>
+                <p ng-show="relaisPoint!=null" style="padding-left:20px; margin-top: -10px; font-weight: bold;">    Montant: {{montantLivraisonRelais }} FCFA
+                </p>
+                <p ng-show="relaisPoint!=null" style="padding-left:20px; font-weight: bold; margin-top: -10px;"> Delais: Envois du colis au point 12h au plus tard après la confirmation de votre commande
+                </p>
+
+                <p ng-show="relaisPoint!=null" style="padding-left:20px;margin-top:-10px;"> Vous serez contacter aprés la validation de votre commande pour plus de details sur les modalités de la livraison
+                </p> 
+              </div>
+
+              <div class="col-lg-12">
+                <div style="text-align: center;" class="col-lg-6 " ng-show="livraison.type=='2' && hasRelais "> 
+                  <button style="background-color:#EE7600; color: white;" ng-click="hasConfirmLivraison=true ;validateLivraisonMode()" class="btn   no-radius" style="font-size:18px;" type="button">Valider et continuer 
+                  </button>
+                </div>
+
+                <div style="text-align: center;" class="col-lg-6 " ng-show="livraison.type=='1'"> 
+                  <button style="background-color:#EE7600; color: white;" ng-click="hasConfirmLivraison=true ;validateLivraisonMode()" class="  btn   no-radius" style="font-size:18px;" type="button">Valider et continuer 
+                  </button>
+                </div>
+
+                <div style="text-align: center;" class="col-lg-6 " ng-show="livraison.type=='2' && !hasRelais "> 
+                  <button style="background-color:#EE7600; color: white;" ng-click="showRelaisModal()" class=" btn   no-radius " data-toggle="modal"  data-target="#relaisModal" style="font-size:18px;" type="button">Choisir un point de relais
+                  </button>
+                </div>
+
+                <div style="text-align: center;" class="col-lg-6 " ng-show="livraison.type=='2' && hasRelais"> 
+                  <button style="background-color:#EE7600; color: white;" ng-click="" class="  btn no-radius"  data-toggle="modal"  data-target="#relaisModal" style="font-size:18px;" type="button">Changer le point de relais
+                  </button>
+                </div>
+
+              </div>
+            </div>
+            <div ng-show="hasConfirmAdress && hasConfirmLivraison" class="adress-resume col-lg-12" style="">
+                <div ng-show="livraison.type=='1'" class="col-lg-4" style="margin-left:70px; margin-top:20px; text-align: left;">
+                  <p style="font-weight:bold;color:black;"><span>{{adresseLivraison.name}} </span>
+                  <span> Livraison à domicile:<span>{{adresseLivraison.tel1}}</span>/<span>{{adresseLivraison.tel2}}</span> - <span> {{adresseLivraison.region}}</span> - <span>{{adresseLivraison.town}}</span> - <span>{{adresseLivraison.adresse}}</span></p>
+                </div>
+
+                <div ng-show="livraison.type=='2'" class="col-lg-4" style="margin-left:70px; margin-top:20px; text-align: left;">
+                  <p > <span style="font-weight:bold;color:black;">Livraison au point de relais: {{relaisPoint.nom}} - {{relaisPoint.emplacement}} - {{montantLivraisonRelais }} FCFA </span> </p>
+                </div>
+
+                <a class="pull-right" style="margin-top:20px;cursor: pointer;" type="submit" class="btn btn-warning no-radius" ng-click="hasConfirmLivraison=false;hasConfirmCommand=false"> <i class="fas fa-pencil-alt"></i> Modifier le mode de livraison 
+                </a>
+            </div>
+          </div>
+
+
+          <div class="pan-resume-commande" class="col-lg-12">
+            
+            <div class="titre" style="padding: 10px 10px 10px 20px; border-bottom: 1px solid gray;" >
+               <span style="border:; border-radius:50%;width:30px;height:30px;background-color:#416998;display: inline-block;text-align:center;font-size:16px; color:white"><p style="margin-top:3px;">4</p></span>
+              <span style="font-weight:bold; margin-left:20px;font-size:12px;margin-top:3px;">RESUME DE LA COMMANDE</span>
+              <span ng-show="!hasConfirmCommand" class="pull-right fa fa-check" style="color:#d9d9d9;font-size:25px;">
+              </span>
+              <span ng-show="hasConfirmCommand" class="pull-right fa fa-check" style="color:green; font-size:25px;">
+              </span>
+            </div>
+
+
+            <div class="col-lg-12" style="" ng-show="hasConfirmAdress && hasConfirmLivraison &&  !hasConfirmCommand">
+             <br/>
+              <table class="table  table-striped table-condensed">
+                <thead style="">
+                      <tr style="text-align:center;">
+                        <th style="text-align:center;">Article</th>
+                        <th style="text-align:center;">quantite</th>
+                        <th style="text-align:center;">prix unitaire</th>
+                        <th style="text-align:center;">sous-total</th>
+                      </tr>
+                </thead>
+                  <tbody>
+                    <tr id="panierDetail" ng-repeat="item in panierDetail" ng-show="item.number<=item.product.quantity? true:false">
+                      <td width="60%">
+                        <div class="col-lg-2">
+                        <img src="assets/images/loading.gif"  ng-src="{{baseUrl}}image/{{item.product.idImage}}"  width="60" height="60">
+                        </div>
+                        <div  class="col-lg-10" style="margin-top:5px;" class="nom"><p style="font-size:14px; font-weight:bold;">{{item.product.name}}</p> 
+                        </div>
+                      </td>
+                      <td align="center" class="quantity" > 
+                        {{item.number}}  
+                      </td>
+                      <td align="center" class="prix-unitaire">
+                         <p ng-show="!item.product.retailSale.isInPromotion"><span style="font-size:13px; font-weight:bold;">{{item.product.retailSale.price}}FCFA</span>
+                         </p>
+                         <p ng-show="item.product.retailSale.isInPromotion">
+                          <span style="font-size:13px; font-weight:bold;">{{item.product.retailSale.promotionalPrice}}FCFA</span><sub > <span style="font-size:10px;text-decoration:line-through;">{{item.product.retailSale.price}}FCFA</span></sub>
+                         </p>
+                      </td>
+                      <td align="center" class="sous-total">
+                         <div ng-show="item.number<=item.product.quantity? true:false">
+                           <p ng-show="!item.product.retailSale.isInPromotion"><span style="font-size:13px; font-weight:bold;">{{item.product.retailSale.price*item.number}}FCFA</span>
+                           </p>
+                           <p ng-show="item.product.retailSale.isInPromotion">
+                            <span style="font-size:13px; font-weight:bold;">{{item.product.retailSale.promotionalPrice *item.number}}FCFA</span><sub > <span style="font-size:10px;text-decoration:line-through;">{{item.product.retailSale.price*item.number}}FCFA</span></sub>
+                           </p> 
+                        </div> 
+                      </td>
+                    </tr>    
+                  </tbody>
+                  <tfoot>
+                      <tr>
+                        <td colspan="4">
+                            <div class="col-lg-5">
+                              <h5>BON D'ACHAT</h5>
+                              <p style="font-size:12px">si vous avez un bon d'achat veuillez l'inserer et cliquer sur utiliser</p>
+                              <div class="input-group col-lg-8" style="margin-bottom:10px;">
+                                  <input type="text" class="form-control no-radius" style="text-align:right; font-size:10px;"  placeholder="saisiser un numero de coupon" >
+                                  <span class="input-group-btn">
+                                    <button  style="background-color:#EE7600; color:white;" class="btn   no-radius" type="button">Utiliser
+                                    </button>
+                                  </span>
+                              </div>
+                            </div>
+                            <div class="pull-right" style="font-weight:bold;font-size:14px;">
+                             <h5> <span style="margin-right:20px;">Sous-total:</span>   {{total}}  FCFA</h5>
+                             <h5 style="margin-bottom:10px;"><span style="margin-right:20px;">Frais de livraison:</span>{{montantLivraison}} FCFA</h5>
+                             <h5 style="border:1px solid gray"></h5>
+
+                             <h5 style="font-weight:bold"><span style="margin-right:20px;">Total:</span>  {{total + montantLivraison}} FCFA</h5>
+                            </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="4">
+                            <div class="col-lg-6">
+                              <h5  style="font-weight:bold;margin-right:20px; font-size:18px;"> TOTAL: {{total + montantLivraison}} FCFA</h5>
+                            </div>
+                            <div class="col-lg-6 "> <button style="background-color:#EE7600;color: white;" ng-click="hasConfirmCommand=true" class=" pull-right btn   no-radius" style="font-size:18px;" type="button">Enregistrer et continuer </button>
+                            </div>
+                        </td>
+                      </tr>      
+                  </tfoot>
+                </table>
+              </div>
+
+              <br/>
+            </div>
+
+            <div ng-show="hasConfirmCommand" class="adress-resume col-lg-12" style="color:black; margin-top: -20px;">
+               <div class="col-lg-12">
+                 <a class="pull-right" style="margin-top:20px; cursor: pointer;" type="submit"  ng-click="hasConfirmCommand=false;"><i class="fa fa-eye"></i> Voir votre commande
+                 </a>
+              </div>
+              <div class="col-lg-8" style="margin-top:0px; margin-left:60px;">
+                <div class="col-lg-4" style="font-weight:bold;font-size:14px;">
+                  {{nbArticles}} articles 
+                </div>
+                <div class="col-lg-4" style="font-weight:bold;font-size:14px;">
+                  Total: {{total}}  FCFA 
+                </div>
+              </div>   
+            </div>
+          
+          <div class="pan-paiement" class="col-lg-12">
+              <div class="titre" style="padding: 10px 10px 10px 20px; border-bottom: 1px solid gray;" >
+                  <span style="border:; border-radius:50%;width:30px;height:30px;background-color:#416998;display: inline-block;text-align:center;font-size:14px; color:white"><p style="margin-top:3px;">5</p>
+                  </span>
+                  <span style="font-weight:bold; margin-left:20px;font-size:12px;margin-top:3px;">PAIEMENT</span>
+                  <span ng-show="!hasConfirmPaiement" class="pull-right fa fa-check" style="color:#d9d9d9;font-size:25px;">
+                  </span>
+              </div><br/>
+
+              <div class="content col-lg-12" ng-show="hasConfirmCommand">
+           
+                <ul style="padding-top:20px;">
+                  <li style="font-weight:bold; font-size:14px;">Choix du mode de paiement</li>
+                </ul>
+
+                <div class="col-lg-5" style="margin-left:30px; font-size:12px;">
+                  <label class="radio-inline" style="font-weight:bold;"><input ng-change="livraisonChange()" value="1" ng-model="paiement.type" type="radio" name="optpaiment" ng-disabled="livraisonType=='1'" ng-checked="livraisonType=='1'" >Paiement à la livraison
+                    <p ng-show="livraison.type=='1'" style="font-weight: 100;> Régler votre commande à la livraison, en espece du montant exact de votre commande,ou en effectuer un transfert MTN mobile money ou Orange money du montant exacte de votre transaction au numero qui vous sera indiqué par le livreur
+                    </p>
+                    <p ng-show="livraison.type=='2'" style="font-weight: 100;"> 
+                      Paiement à la livraison n'est pas possible pour les livraisons aux points de relais
+                    </p>
+                  </label>
+                  <!-- <p style="padding-left:20px;">Delais: 2 jours en fonction du lieu</p>
+                  <p style="padding-left:20px;margin-top:-10px;">Prix: 700FCFA</p> -->
+                </div>
+
+                <div class="col-lg-5" style="margin-left:30px; font-size:12px;">
+                  <label class="radio-inline" style="font-weight:bold;"><input value="2" ng-change="livraisonChange()" ng-model="paiement.type" type="radio" ng-checked="livraison.type=='2'"  name="optpaiement"> Paiement mobile: Orange Money/MTN Mobile Money/Express union/dohone/visa/masterCard
+                  </label>
+                  
+                  
+                </div>
+
+         
+                <div class="col-lg-12" style="text-align:center;"> 
+                    <button   ng-click="sendCommand()" class=" btn   no-radius" style="font-size:18px;background-color:#EE7600;color: white;" type="button"> Valider votre commande
+                    </button>
+                </div>
+
+              </div>
+          </div>
+
+          <div class="pan-paiement" class="col-lg-12">
+                <div class="titre" style="padding: 10px 10px 10px 20px;" >
+                  <span style="font-weight:bold; margin-left:20px;font-size:12px;margin-top:3px;"></span>
+                </div>
+                <div class="content col-lg-12" ng-show="hasConfirmCommand">
+                </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="modal fade" id="adresseForm" role="dialog" style="margin-top:50px; 
+          color:black;">
+          <div class="modal-dialog" style="width:820px; min-height:400px;">
+            <div class="modal-content" style="">
+
+                <div class="modal-header" style="background-color:gray;text-align:center;">
+                  <button type="button" class="close" data-dismiss="modal">x</button>
+                  <h4 style="color:white" class="modal-title">Creer une adresse de livraison</h4>
+                </div>
+
+                <div class="modal-body" style="margin-top:20px;min-height:400px;">
+                  <div class="loadingPage" ng-show="isLoading1">
+                      <div class="col-lg-12" style="margin-top:0px;">
+                        <p style="text-align:center; font-size:16px; color:gray;font-style:italic;">Enregistrement de l'adresse de livraison...<p>
+                        <p style="text-align:center;">
+                            <img src="assets/images/loading.gif" height="200" width="200">
+                        </p>
+                      </div>
+                  </div>
+                  
+                  <div class="content" ng-show="!isLoading1">    
+                    <div class="modify" style="margin-top:30px;">
+                      <form class="form-horizontal" name="myForm" ng-submit="validerModification()" novalidate style="font-size:14px; margin-left:30px;">
+
+                        <div class="form-group">
+                          <span class="control-label col-lg-2" for="nom">Nom <sup>*</sup></span>
+                          <div class="col-lg-10">
+                            <input type="input" class="form-control no-radius" id="nom" name="nom" ng-model="nom" placeholder="Entrez votre nom" ng-minlength="2" required>
+                            <div class="error" ng-show="myForm.nom.$invalid && myForm.nom.$dirty">
+                              <span ng-show="myForm.nom.$error.required">
+                                Valeur requise
+                              </span>
+                              <span ng-show="myForm.nom.$error.minlength">
+                                Entrer un nom de 2 caractere au moins
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <span class="control-label col-lg-2"  for="prenom">Prenom </span>
+                          <div class="col-lg-10">
+                            <input type="input" ng-model="prenom" class="form-control no-radius" id="prenom" placeholder="Entrez votre prenom">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <span class="control-label col-lg-2" for="prenom" >telephone 1 <sup>*
+                          </sup>
+                          </span>
+                          <div class="col-lg-10">
+                            <input type="input" ng-model="tel1" ng-pattern="matchPatternTel" class="form-control no-radius" name="tel1" id="tel1" placeholder="modifier  votre 1er numero de telephone" required="">
+                            <div class="error" ng-show="myForm.tel1.$invalid && myForm.tel1.$dirty">
+                              <span ng-show="myForm.tel1.$error.required">
+                                Valeur requise
+                              </span>
+                              <span ng-show="myForm.tel1.$error.pattern">
+                                Entrer  un numero de telephone valide
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <span class="control-label col-lg-2" for="prenom">telephone 2 </span>
+                          <div class="col-lg-10">
+                            <input type="input" name="tel2" ng-model="tel2" ng-pattern="matchPatternTel" class="form-control no-radius" id="tel2" placeholder="modifier  votre 1er numero de telephone">
+                            <div class="error" ng-show="myForm.tel2.$invalid && myForm.tel2.$dirty">
+                              <span ng-show="myForm.tel2.$error.pattern">
+                                Entrer  un numero de telephone valide
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div class="form-group ">
+                          <div class="col-lg-6">
+                            <span class="control-label col-lg-4" for="sexe">Region<sup>*</sup></span>
+                            <div class="col-lg-8">
+                              <div class=" row col-lg-10" style="margin-right:0px;">
+                                <select class="form-control" name="region" ng-change="modifRegion()" ng-model="maRegion" no-radius" id="region" value="region" ng-options="option.region for option in localite" >
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <span class="control-label col-lg-2" for="sexe">Ville<sup>*</sup></span>
+                            <div class="col-lg-8">
+                              <div class=" row col-lg-10" style="margin-right:0px;">
+                                <select class="form-control"  ng-model="maVille" no-radius" id="ville" value="ville"  ng-options="option.name for option in villes">
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <span class="control-label col-lg-2" for="nom">Adresse<sup>*</sup></span>
+                          <div class="col-lg-10">
+                            <input type="input" name="adresse" ng-model="adresse" class="form-control no-radius" id="adresse" placeholder="veuillez renseigner votre adresse" ng-minlength="4" required>
+                            <div class="error" ng-show="myForm.adresse.$invalid && myForm.adresse.$dirty">
+                                <span ng-show="myForm.adresse.$error.required">
+                                  Valeur requise
+                                </span>
+                                <span ng-show="myForm.adresse.$error.minlength">
+                                  entrer un nom de localte de 2 caractere au moins
+                                </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <p class="col-lg-offset-2 col-lg-10" style="font-size:12px;"> *champs requis</p>
+                          <div class="col-lg-offset-2 col-lg-3">
+                            <button type="submit" ng-disabled="myForm.$invalid"  style="background-color: #EE7600;border-color:#EE7600; color: white;" class="btn  no-radius" ng-click="sendAdress()">Enregistrer l'adresse</button>
+                          </div>
+                          <div class="col-lg-3">
+                            <a  ng-click="annulercreationAdresse()" style="background-color: #EE7600;border-color:#EE7600" class="btn btn-warning no-radius">Annuler</a>
+                          </div>
+                       </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+      </div>
+      <div class="modal fade" id="adresseFormModif" role="dialog" style="margin-top:50px; 
+          color:black;">
+          <div class="modal-dialog" style="width:820px; min-height:400px;">
+            <div class="modal-content" style="">
+                <div class="modal-header" style="background-color:gray;text-align:center;">
+                  <button type="button" class="close" data-dismiss="modal">x</button>
+                  <h4 style="color:white" class="modal-title">Modifier votre adresse</h4>
+                </div>
+                <div class="modal-body" style="margin-top:20px;min-height:400px;">
+                  <div class="loadingPage" ng-show="isLoading2">
+                      <div class="col-lg-12" style="margin-top:0px; min-height:400px;">
+                        <p style="text-align:center; font-size:16px; color:gray;font-style:italic;">modification de l'adresse <p>
+                        <p style="text-align:center;">
+                            <img src="assets/images/loading.gif" height="300" width="300">
+                        </p>
+                      </div>
+                  </div>
+                  <div class="content" ng-show="!isLoading2">    
+                    <div class="modify" style="margin-top:30px;">
+                      <form class="form-horizontal" name="myForm1" ng-submit="modifAdress()" novalidate style="font-size:14px; margin-left:30px;">
+
+                        <div class="form-group">
+                          <span class="control-label col-lg-2" for="nom">Nom<sup>*</sup></span>
+                          <div class="col-lg-10">
+                            <input type="input" class="form-control no-radius" id="nom" name="nom" ng-model="nom" placeholder="Entrez votre nom" ng-minlength="2" required>
+                            <div class="error" ng-show="myForm1.nom.$invalid && myForm1.nom.$dirty">
+                              <span ng-show="myForm1.nom.$error.required">
+                                Valeur requise
+                              </span>
+                              <span ng-show="myForm1.nom.$error.minlength">
+                                Entrer un nom de 2 caractères au moins
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <span class="control-label col-lg-2"  for="prenom">Prenom</span>
+                          <div class="col-lg-10">
+                            <input type="input" ng-model="prenom" class="form-control no-radius" id="prenom" placeholder="Entrez votre prenom">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <span class="control-label col-lg-2" for="prenom" >telephone 1 <sup>*
+                          </sup>
+                          </span>
+                          <div class="col-lg-10">
+                            <input type="input" ng-model="tel1" ng-pattern="matchPatternTel" class="form-control no-radius" name="tel1" id="tel1" placeholder="modifier  votre 1er numero de telephone" required="">
+                            <div class="error" ng-show="myForm1.tel1.$invalid && myForm1.tel1.$dirty">
+                              <span ng-show="myForm1.tel1.$error.required">
+                                Valeur requise
+                              </span>
+                              <span ng-show="myForm1.tel1.$error.pattern">
+                                Entrer  un numero de telephone valide
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <span class="control-label col-lg-2" for="prenom">telephone 2</span>
+                          <div class="col-lg-10">
+                            <input type="input" name="tel2" ng-model="tel2" ng-pattern="matchPatternTel" class="form-control no-radius" id="tel2" placeholder="modifier  votre 1er numero de telephone">
+                            <div class="error" ng-show="myForm1.tel2.$invalid && myForm1.tel2.$dirty">
+                              <span ng-show="myForm1.tel2.$error.pattern">
+                                Entrer  un numero de telephone valide
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                         
+                        <div class="form-group ">
+                          <div class="col-lg-6">
+                            <span class="control-label col-lg-4" for="sexe">Region<sup>*</sup></span>
+                            <div class="col-lg-8">
+                              <div class=" row col-lg-10" style="margin-right:0px;">
+                                <select class="form-control" name="region" ng-change="modifRegion()" ng-model="maRegion" no-radius" id="region" value="region" ng-options="option.region for option in localite" >
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <span class="control-label col-lg-2" for="sexe">Ville<sup>*</sup></span>
+                            <div class="col-lg-8">
+                              <div class=" row col-lg-10" style="margin-right:0px;">
+                                <select class="form-control"  ng-model="maVille" no-radius" id="ville" value="ville"  ng-options="option.name for option in villes">
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <span class="control-label col-lg-2" for="nom">Adresse<sup>*</sup></span>
+                          <div class="col-lg-10">
+                            <input type="input" name="adresse" ng-model="adresse" class="form-control no-radius" id="adresse" placeholder="veuillez renseigner votre adresse" ng-minlength="4" required>
+                            <div class="error" ng-show="myForm1.adresse.$invalid && myForm1.adresse.$dirty">
+                                <span ng-show="myForm1.adresse.$error.required">
+                                  Valeur requise
+                                </span>
+                                <span ng-show="myForm1.adresse.$error.minlength">
+                                  entrer un nom de localte de 2 caractere au moins
+                                </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <p class="col-lg-offset-2 col-lg-10" style="font-size:12px;"> *champs requis</p>
+                          <div class="col-lg-offset-2 col-lg-3">
+                            <button  style="background-color: #EE7600;color:white;" type="submit" ng-disabled="myForm1.$invalid" class="btn  no-radius">Enregistrer l'adresse</button>
+                          </div>
+                          <div class="col-lg-3">
+                            <a  style="background-color: #EE7600;color:white;"  ng-click="annulerModifAdresse()" class="btn  no-radius">Annuler</a>
+                          </div>
+                       </div>
+                      </form>
+                    </div>
+
+                  </div>
+                </div>
+            </div>
+          </div>
+      </div>
+
+      <div class="modal fade" id="relaisModal" role="dialog" style="margin-top:50px; 
+          color:black;">
+          <div class="modal-dialog" style="width:820px; min-height:400px;">
+            <div class="modal-content" style="">
+                <div class="modal-header" style="background-color:gray;text-align:center;">
+                  <button type="button" class="close" data-dismiss="modal">x</button>
+                  <h4 style="color:white" class="modal-title">Choisisser un point de relais</h4>
+                </div>
+                <div class="modal-body" style="margin-top:20px;min-height:400px;">
+                  <div class="loadingPage" ng-show="isLoading2">
+                      <div class="col-lg-12" style="margin-top:0px; min-height:400px;">
+                        <p style="text-align:center; font-size:16px; color:gray;font-style:italic;">modification de l'adresse 
+                        </p>
+                        <p style="text-align:center;">
+                            <img src="assets/images/loading.gif" height="300" width="300">
+                        </p>
+                      </div>
+                  </div>
+                  <div class="content" ng-show="!isLoading2">    
+                    <div class="modify" style="margin-top:0px;">
+
+                        <h5 style="border-bottom: 1px solid gray;padding-bottom: 10px; margin-bottom: 20px; ">choisir un point de relais
+                        </h5>
+
+                        <div class="form-group " >
+                          <div class="col-lg-12">
+                            <span class="control-label col-lg-4" for="sexe">Choisir votre ville<sup>*</sup></span>
+                            <div class="col-lg-8">
+                              <div class=" row col-lg-10" style="margin-right:0px;">
+                                <select class="form-control" name="region"  ng-model="relaisVille" no-radius" id="relaisVille" value="relaisVille" ng-options="option.ville for option in relais" >
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-lg-12" style="margin-top: 10px;">
+                            <span class="control-label col-lg-4" for="sexe">Choisir un point de relais<sup>*</sup></span>
+                            <div class="col-lg-8">
+                              <div class=" row col-lg-10" style="margin-right:0px;">
+                                <select class="form-control"  ng-model="point" ng-change="changeRelais()" no-radius" id="point" value="point"  ng-options="option.nom for option in relaisVille.relais">
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <h5 style="border-bottom: 1px solid gray;padding-bottom: 10px; margin-bottom: 20px; ">Detail sur le point de relais
+                        </h5>
+
+                        <div ng-show="point!=null">
+                          <div class="row" style=" padding-bottom: 15px;">
+                              <div class="col-lg-4">Point de relais:</div>
+                              <div class="col-lg-6">{{point.nom}}</div>
+                          </div>
+
+                          <div class="row" style=" padding-bottom: 15px;">
+                              <div class="col-lg-4">Quartier:</div>
+                              <div class="col-lg-6">{{point.quartier}}</div>
+                          </div>
+
+                           <div class="row" style=" padding-bottom: 15px;">
+                              <div class="col-lg-4">Emplacement:</div>
+                              <div class="col-lg-6">{{point.emplacement}}</div>
+                          </div>
+
+                          <div class="row" style=" padding-bottom: 15px;">
+                              <div class="col-lg-4">Montant de la livraison:</div>
+                              <div class="col-lg-6">{{montantLivraisonRelais}}</div>
+                          </div>
+                        </div>
+
+                        <div ng-show="point==null">
+                          <div class="row">
+                            <div class="col-lg-12" style="color: gray; text-align: center">
+                              Aucun point de relais choisis, veuillez choissir un point de relais
+                            </div> 
+                          </div>
+                        </div>
+                      
+                        <div class="row" style="">
+                          <div class="col-lg-12" style="text-align: center;margin-top: 10px;">
+                            <button ng-show="point!=null" ng-click="chooseRelais()"  style="background-color:#EE7600; color: white;" class="btn   no-radius" type="button">Selectionner ce point de relais
+                            </button>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+      </div>
+
+    </div>
+  </div>

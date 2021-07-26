@@ -1,0 +1,16 @@
+#commande .pan-adresse-livraison, .pan-resume-commande, .pan-paiement,.pan-partage, .loadingPage,.pan-mode-livraison
+{
+    margin-bottom:0px;
+	z-index: 9999;
+	background-color: white;
+}
+
+#commande .error{
+	color:red;
+	font-style:  italic;
+}
+
+#commande .control-label{
+
+font-style: italic;
+}

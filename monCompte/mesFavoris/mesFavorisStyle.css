@@ -1,0 +1,41 @@
+.monCompte a {
+	outline: none;
+}
+a{
+	outline: none;
+}
+
+.monCompte .nav-gauche a {
+    color: gray;
+    text-decoration: none;
+}
+
+
+.monCompte .nav-gauche ul li{
+ height: 30px;
+ margin-bottom: 0px;
+
+}
+
+.monCompte .nav-gauche ul li a {
+ color: black;
+ text-decoration: none;
+ font-size: 12px;
+ font-weight: bold;
+}
+
+.monCompte .nav-gauche ul li a:hover{
+
+	color:#EE7600;
+	text-decoration:none; 
+     cursor:pointer; 
+}
+
+.monCompte .error{
+	color:red;
+	font-style:  italic;
+}
+
+.monCompte .control-label{
+	font-style:  italic;
+}

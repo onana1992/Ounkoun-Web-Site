@@ -1,0 +1,76 @@
+<div ng-controller="AidePaiementCtrl" class="monCompte">
+	<div class="container" style="margin-top:20px;">
+		<div  class="row" >
+          <div class="col-lg-12">
+            <span style="color:gray;font-size:12px;">Accueil</span><span class="glyphicon glyphicon-chevron-right " style=" font-size:10px; margin-left:5px; margin-right:5px; color:gray;"></span><span style="color:black;font-weight:bold;font-size:12px;">Aide paiement</span>
+          </div>
+    </div>
+    <div class="row" style="margin-top:30px;">
+    		<div class="col-lg-12">
+      			<h4 style="height:30px;border-bottom:1px solid gray; margin-bottom:20px;">Aide</h4>
+      		</div>
+    </div>
+    <div class="row" style="margin-bottom:20px;">
+      <div class="col-lg-3 nav-gauche">
+        <ul class="list-unstyled">
+            <li> <a   style="color:#EE7600;" href="aidePaiement.php">PAIEMENT</a></li>
+            <li> <a href="aideLivraison.php">LIVRAISON</a></li>
+            <li> <a  href="aideRetour.php">RETOUR ET REMBOURSEMENT</a></li>
+            <li> <a href="aideAPropos.php">A PROPOS</a> </li>
+        </ul>
+      </div>
+
+      <div class="col-lg-8">
+        <h4 style="height:30px;border-bottom:1px solid gray; margin-bottom:20px; color:#EE7600">Options paiement
+        </h4>
+        <!-- <p style="text-align:center; "> <img src="../assets/imgs/cash.jpg" height="30%" width="30%"></p> -->
+        <h4 style="color:#EE7600;text-align: center;">Paiement à la livraison </h4>
+
+        <p style="text-align: justify;">
+          Le paiement à la livraison est possible pour les commandes livrées à domicile par nos livreurs. Ainsi après la vérification de sa commande, il est possible au client de payer en liquide ou via un dépôt Orange Money ou MTN Mobile money sur le compte du numéro qui vous sera communiquer par le livreur.
+        </p>
+
+        <p style="font-weight:bold; text-align: justify;">
+          NB : Pour les paiements en liquide, le client devra se munir du montant exact de sa commande ceci pour éviter tout désagrément ou perte de temps.
+        </p>
+
+  
+        <h4 style="color:#EE7600;text-align: center;">Paiements mobiles </h4>
+
+        <p style="text-align: justify;">
+          Pour les clients ayant choisis l’option de paiement mobile,Le module de paiement electronique de notre partenaire Dohone est integré dans notre site ainsi que dans l'application android. Le client aura donc le choix sur le moyens qu'il sohaite utlisé parmi ceux disponible a savoir : Orange money, MTN mobile money, Express exchange,  Dohone, Wari et Visa via Wari.
+        </p>
+
+        <div class="row">
+                
+                <div class="col-lg-4" style="text-align:center;margin-bottom: 20px;" >
+                   <img src="assets/images/orange-money.jpg" height="30%" width="30%">
+                </div>
+
+                <div class="col-lg-4" style="text-align:center;margin-bottom: 20px;">
+                   <img src="assets/images/MTN-Mobile-Money.png" height="30%" width="30%">
+                </div> 
+
+                <div class="col-lg-4" style="text-align:center;margin-bottom: 20px;">
+                   <img src="assets/images/logoeu.jpg" height="30%" width="30%">
+                </div> 
+              </div>
+              <div class="row">
+                <div class="col-lg-4" style="text-align:center;margin-bottom: 20px;">
+                   <img src="assets/images/wari-visa.png" height="30%" width="30%">
+                </div> 
+
+                <div class="col-lg-4" style="text-align:center;margin-bottom: 20px;">
+                   <img src="assets/images/dohone-account.png" height="30%" width="30%">
+                </div> 
+
+                <div class="col-lg-4" style="text-align:center;margin-bottom: 20px;">
+                   <img src="assets/images/wari-card.png" height="30%" width="30%">
+                </div>
+              </div>
+            </div>
+      </div>
+    </div>
+    <div ng-include="'foot/foot.html'" > </div>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+{
+    
+    'ville': 'Yaounde',
+    'relais': [ 
+                {
+                    'nom': 'EMI MONEY ACCACIAS',
+                    'quartier' : 'ACCACIAS',
+                    'emplacement':'En plein cœur du Marché Accacias',
+                    'prix_small' : 1500,
+                    'prix_medium' : 2000,
+                    'prix_medium' : 2500
+                },
+
+                {
+                    'nom': 'EXPRESS UNION ANGUISSA',
+                    'quartier' : 'ANGUISSA',
+                    'emplacement':'Entre le carrefour ANGUISSA et le lycée',
+                    'prix_small' : 1500,
+                    'prix_medium' : 2000,
+                    'prix_medium' : 2500
+                },
+
+                {
+                    'nom': 'EXPRESS UNION AHALA',
+                    'quartier' : 'AHALA',
+                    'emplacement':'En plein cœur du marché Ahala',
+                    'prix_small' : 1500,
+                    'prix_medium' : 2000,
+                    'prix_medium' : 2500
+                },
+
+                {
+                    'nom': 'EXPRESS UNION AVENUE KENNEDY',
+                    'quartier' : 'AVENUE KENNEDY',
+                    'emplacement':'Immeuble TIGER',
+                    'prix_small' : 1500,
+                    'prix_medium' : 2000,
+                    'prix_medium' : 2500
+                }
+
+    ]
+}
+
+
+{
+    
+    'ville': 'Douala',
+    'relais': [ 
+                {
+                    'nom': 'EXPRESS UNION FRET AÉROPORT',
+                    'quartier' : 'AÉROPORT',
+                    'emplacement':'Situe en face de fret aéroport',
+                    'prix_small' : 2000,
+                    'prix_medium' : 4000,
+                    'prix_medium' : 6000
+                },
+
+                {
+                    'nom': 'GRAAL ITALIA',
+                    'quartier' : 'AKWA',
+                    'emplacement':'Derrière direction générale Sorepco Akwa',
+                    'prix_small' : 2000,
+                    'prix_medium' : 4000,
+                    'prix_medium' : 6000
+                },
+
+                {
+                    'nom': 'EXPRESS UNION ANCIEN DALIP',
+                    'quartier' : 'AKWA',
+                    'emplacement':'En face de la pharmacie de douala, carrefour ancien Dalip',
+                    'prix_small' : 2000,
+                    'prix_medium' : 4000,
+                    'prix_medium' : 6000
+                },
+
+                 {
+                    'nom': 'EXPRESS UNION AKWA IDÉAL',
+                    'quartier' : 'AKWA',
+                    'emplacement':'Carrefour idéal, en allant vers Camtel',
+                    'prix_small' : 2000,
+                    'prix_medium' : 4000,
+                    'prix_medium' : 6000
+                }
+    ]
+}

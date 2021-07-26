@@ -1,0 +1,360 @@
+<div ng-controller="AdresseLivraisonCtrl" class="monCompte">
+	<div class="container" style="margin-top:20px; margin-bottom:90px; ">
+
+		<div class="row" >
+      <div class="col-lg-12">
+        <a href="/#!/" style="color:gray; font-size:12px;">Accueil
+          <span class="glyphicon glyphicon-chevron-right " style=" font-size:10px; margin-left:5px; margin-right:5px; color:gray;">
+          </span>
+          <span style="color:black; font-weight:bold;font-size:12px;">mes informations personnelles
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:30px;">
+    		<div class="col-lg-12">
+      			<h4 style="height:30px;border-bottom:1px solid gray;font-size:17px; margin-bottom:20px;">Mon compte</h4>
+      		</div>
+    </div>
+
+    <div class="row" style="margin-bottom:20px;">
+      <div class="col-lg-3 nav-gauche">
+        <ul class="list-unstyled">
+            <li> <a   href="profil.php"> MES INFORMATIONS PERSONNELLE</a></li>
+            <li> <a href="password.php"> CHANGER MON MOT DE PASSE</a></li>
+            <li> <a style="color:#EE7600;" href="adresse.php"> MON ADRESSE</a></li>
+            <li> <a href="favoris.php">MES FAVORIS</a> </li>
+            <li> <a  href="mesCommande.php">MES COMMANDES</a> </li>
+        </ul>
+      </div>
+
+      <div class="col-lg-8">
+        <h4 style="height:30px;border-bottom:1px solid gray;font-size:16px; margin-bottom:20px;">Mon adresse de livraison
+        </h4>
+        <div class="loadingPage" ng-show="isLoading">
+          <div class="col-lg-12" style="margin-top:40px;">
+            <p style="text-align:center; font-size:16px; color:gray;font-style:italic;">veillez patienter, modification de l'adresse de livraison...
+            </p>
+            <p style="margin-top:50;text-align:center;">
+            <img src="assets/images/loading.gif">
+            </p>
+          </div>
+        </div>
+        <div class="display" ng-show="!showForm && !isLoading">
+          <div class="empty-address" ng-show="!hasAdress">
+            <p style="text-align:center; font-size:16px; color:gray;font-style:italic;">Vous n'avez pas d'adresse de livraisons, veuillez creer une
+            </p>
+            <p  style="text-align:center;">
+              <button type="submit" data-toggle="modal" style="background-color:#EE7600; color:white;"  data-target="#adresseForm" class="btn  no-radius">creer une adresse</button>
+            </p>
+                
+          </div><br/>
+          <div class="address" ng-show="hasAdress" style="margin-bottom:20px;">
+              <div class="col-lg-12">
+
+                  <div class="col-lg-10" style="text-align:left;">
+                    <table class="table">
+                      <tr>
+                          <td>Nom </td>
+                          <td>{{adresseLivraison.name}}</td>
+                      </tr>
+
+                      <tr>
+                          <td>Prenom</td>
+                          <td>{{adresseLivraison.firstName}}</td>
+                      </tr>
+
+                      <tr>
+                          <td>Numero de telephone 1</td>
+                          <td>{{adresseLivraison.tel1}}</td>
+                      </tr>
+
+                      <tr>
+                          <td>Numero de telephone 2</td>
+                          <td>{{adresseLivraison.tel2}}</td>
+                      </tr>
+
+                      <tr>
+                          <td>Region</td>
+                          <td>{{adresseLivraison.region}}</td>
+                      </tr>
+
+                      <tr>
+                          <td>Ville</td>
+                          <td>{{adresseLivraison.town}}</td>
+                      </tr>
+
+                      <tr>
+                          <td>Adresse</td>
+                          <td>{{adresseLivraison.adresse}}</td>
+                      </tr>
+                    </table>
+                    <p  style="text-align:center;">
+                      <button type="submit" style="background-color: #EE7600; color:white;" class="btn  no-radius" data-toggle="modal"  data-target="#adresseFormModif">Modifier votre adresse </button>
+                    </p>
+                  </div>
+              </div>
+          </div><br/><br/>
+        </div>   
+      </div>
+    </div>
+    <div class="modal fade" id="adresseForm" role="dialog" style="margin-top:50px; 
+        color:black;">
+        <div class="modal-dialog" style="width:820px;">
+          <div class="modal-content" style="">
+
+              <div class="modal-header" style="background-color:gray;text-align:center;">
+                <button type="button" class="close" data-dismiss="modal">x</button>
+                <h4 style="color:white" class="modal-title">Creer une adresse de livraison</h4>
+              </div>
+
+              <div class="modal-body" style="margin-top:20px;min-height:400px;">
+
+                <div class="loadingPage" ng-show="isLoading2">
+                    <div class="col-lg-12" style="margin-top:0px; min-height:400px;">
+                      <p style="text-align:center; font-size:16px; color:gray;font-style:italic;">Enregistrement de l'adresse de livraison...</p>
+                      <p style="text-align:center;">
+                          <img src="assets/images/loading.gif" height="300" width="300">
+                      </p>
+                    </div>
+                </div>
+                
+                <div class="content" ng-show="!isLoading2">    
+                  <div class="modify" style="margin-top:30px;">
+                    <form class="form-horizontal" name="myForm" ng-submit="validerModification()" novalidate style="font-size:14px; margin-left:30px;">
+
+                      <div class="form-group">
+                        <span class="control-label col-lg-2" for="nom">Nom <sup>*</sup></span>
+                        <div class="col-lg-10">
+                          <input type="input" class="form-control no-radius" id="nom" name="nom" ng-model="nom" placeholder="Entrez votre nom" ng-minlength="2" required>
+                          <div class="error" ng-show="myForm.nom.$invalid && myForm.nom.$dirty">
+                            <span ng-show="myForm.nom.$error.required">
+                              Valeur requise
+                            </span>
+                            <span ng-show="myForm.nom.$error.minlength">
+                              Entrer un nom de 2 caractere au moins
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <span class="control-label col-lg-2"  for="prenom">Prenom</span>
+                        <div class="col-lg-10">
+                          <input type="input" ng-model="prenom" class="form-control no-radius" id="prenom" placeholder="Entrez votre prenom">
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <span class="control-label col-lg-2" for="prenom" >telephone 1 <sup>*
+                        </sup>
+                        </span>
+                        <div class="col-lg-10">
+                          <input type="input" ng-model="tel1" ng-pattern="matchPatternTel" class="form-control no-radius" name="tel1" id="tel1" placeholder="modifier  votre 1er numero de telephone" required="">
+                          <div class="error" ng-show="myForm.tel1.$invalid && myForm.tel1.$dirty">
+                            <span ng-show="myForm.tel1.$error.required">
+                              Valeur requise
+                            </span>
+                            <span ng-show="myForm.tel1.$error.pattern">
+                              Entrer  un numero de telephone valide
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <span class="control-label col-lg-2" for="prenom">telephone 2 </span>
+                        <div class="col-lg-10">
+                          <input type="input" name="tel2" ng-model="tel2" ng-pattern="matchPatternTel" class="form-control no-radius" id="tel2" placeholder="modifier  votre 1er numero de telephone">
+                          <div class="error" ng-show="myForm.tel2.$invalid && myForm.tel2.$dirty">
+                            <span ng-show="myForm.tel2.$error.pattern">
+                              Entrer  un numero de telephone valide
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="form-group ">
+                        <div class="col-lg-6">
+                          <span class="control-label col-lg-4" for="sexe">Region<sup>*</sup></span>
+                          <div class="col-lg-8">
+                            <div class=" row col-lg-10" style="margin-right:0px;">
+                              <select class="form-control" name="region" ng-change="modifRegion()" ng-model="maRegion" no-radius" id="region" value="region" ng-options="option.region for option in localite" >
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <span class="control-label col-lg-2" for="sexe">Ville<sup>*</sup></span>
+                          <div class="col-lg-8">
+                            <div class=" row col-lg-10" style="margin-right:0px;">
+                              <select class="form-control"  ng-model="maVille" no-radius" id="ville" value="ville"  ng-options="option.name for option in villes">
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <span class="control-label col-lg-2" for="nom">Adresse<sup>*</sup></span>
+                        <div class="col-lg-10">
+                          <input type="input" name="adresse" ng-model="adresse" class="form-control no-radius" id="adresse" placeholder="veuillez renseigner votre adresse" ng-minlength="4" required>
+                          <div class="error" ng-show="myForm.adresse.$invalid && myForm.adresse.$dirty">
+                              <span ng-show="myForm.adresse.$error.required">
+                                Valeur requise
+                              </span>
+                              <span ng-show="myForm.adresse.$error.minlength">
+                                entrer un nom de localte de 2 caractere au moins
+                              </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <p class="col-lg-offset-2 col-lg-10" style="font-size:12px;"> *champs requis</p>
+                        <div class="col-lg-offset-2 col-lg-3">
+                          <button type="submit" ng-disabled="myForm.$invalid"  style="background-color: #EE7600;color:white;" class="btn no-radius" ng-click="sendAdress()">Enregistrer l'adresse</button>
+                        </div>
+                        <div class="col-lg-3">
+                          <a  ng-click="annulercreationAdresse()" style="background-color: #EE7600;border-color:#EE7600" class="btn btn-warning no-radius">Annuler</a>
+                        </div>
+                     </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal fade" id="adresseFormModif" role="dialog" style="margin-top:50px; 
+        color:black;">
+        <div class="modal-dialog" style="width:820px; min-height:400px;">
+          <div class="modal-content" style="">
+              <div class="modal-header" style="background-color:gray;text-align:center;">
+                <button type="button" class="close" data-dismiss="modal">x</button>
+                <h4 style="color:white" class="modal-title">Modifier votre adresse </h4>
+              </div>
+              <div class="modal-body" style="margin-top:20px;min-height:400px;">
+                <div class="loadingPage" ng-show="isLoading2">
+                    <div class="col-lg-12" style="margin-top:0px; min-height:400px;">
+                      <p style="text-align:center; font-size:16px; color:gray;font-style:italic;">modification de l'adresse ...</p>
+                      <p style="text-align:center;">
+                          <img src="assets/images/loading.gif" height="300" width="300">
+                      </p>
+                    </div>
+                </div>
+                <div class="content" ng-show="!isLoading2">    
+                  <div class="modify" style="margin-top:30px;">
+                    <form class="form-horizontal" name="myForm1" ng-submit="modifAdress()" novalidate style="font-size:14px; margin-left:30px;">
+
+                      <div class="form-group">
+                        <span class="control-label col-lg-2" for="nom">Nom<sup>*</sup></span>
+                        <div class="col-lg-10">
+                          <input type="input" class="form-control no-radius" id="nom" name="nom" ng-model="nom" placeholder="Entrez votre nom" ng-minlength="2" required>
+                          <div class="error" ng-show="myForm1.nom.$invalid && myForm1.nom.$dirty">
+                            <span ng-show="myForm1.nom.$error.required">
+                              Valeur requise
+                            </span>
+                            <span ng-show="myForm1.nom.$error.minlength">
+                              Entrer un nom de 2 caractere au moins
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <span class="control-label col-lg-2"  for="prenom">Prenom</span>
+                        <div class="col-lg-10">
+                          <input type="input" ng-model="prenom" class="form-control no-radius" id="prenom" placeholder="Entrez votre prenom">
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <span class="control-label col-lg-2" for="prenom" >telephone 1<sup>*
+                        </sup>
+                        </span>
+                        <div class="col-lg-10">
+                          <input type="input" ng-model="tel1" ng-pattern="matchPatternTel" class="form-control no-radius" name="tel1" id="tel1" placeholder="modifier  votre 1er numero de telephone" required="">
+                          <div class="error" ng-show="myForm1.tel1.$invalid && myForm1.tel1.$dirty">
+                            <span ng-show="myForm1.tel1.$error.required">
+                              Valeur requise
+                            </span>
+                            <span ng-show="myForm1.tel1.$error.pattern">
+                              Entrer  un numero de telephone valide
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <span class="control-label col-lg-2" for="prenom">telephone 2 </span>
+                        <div class="col-lg-10">
+                          <input type="input" name="tel2" ng-model="tel2" ng-pattern="matchPatternTel" class="form-control no-radius" id="tel2" placeholder="modifier  votre 1er numero de telephone">
+                          <div class="error" ng-show="myForm1.tel2.$invalid && myForm1.tel2.$dirty">
+                            <span ng-show="myForm1.tel2.$error.pattern">
+                              Entrer  un numero de telephone valide
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                       
+                      <div class="form-group ">
+                        <div class="col-lg-6">
+                          <span class="control-label col-lg-4" for="sexe">Region<sup>*</sup></span>
+                          <div class="col-lg-8">
+                            <div class=" row col-lg-10" style="margin-right:0px;">
+                              <select class="form-control" name="region" ng-change="modifRegion()" ng-model="maRegion" no-radius" id="region" value="region" ng-options="option.region for option in localite" >
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <span class="control-label col-lg-2" for="sexe">Ville<sup>*</sup></span>
+                          <div class="col-lg-8">
+                            <div class=" row col-lg-10" style="margin-right:0px;">
+                              <select class="form-control"  ng-model="maVille" no-radius" id="ville" value="ville"  ng-options="option.name for option in villes">
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <span class="control-label col-lg-2" for="nom">Adresse<sup>*</sup></span>
+                        <div class="col-lg-10">
+                          <input type="input" name="adresse" ng-model="adresse" class="form-control no-radius" id="adresse" placeholder="veuillez renseigner votre adresse" ng-minlength="4" required>
+                          <div class="error" ng-show="myForm1.adresse.$invalid && myForm1.adresse.$dirty">
+                              <span ng-show="myForm1.adresse.$error.required">
+                                Valeur requise
+                              </span>
+                              <span ng-show="myForm1.adresse.$error.minlength">
+                                entrer un nom de localte de 2 caractere au moins
+                              </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <p class="col-lg-offset-2 col-lg-10" style="font-size:12px;"> *champs requis</p>
+                        <div class="col-lg-offset-2 col-lg-3">
+                          <button  style="background-color: #EE7600;color:white;" type="submit" ng-disabled="myForm1.$invalid" class="btn  no-radius">Enregistrer l'adresse</button>
+                        </div>
+                        <div class="col-lg-3">
+                          <a  style="background-color: #EE7600;color:white;"  ng-click="annulerModifAdresse()" class="btn btn-warning no-radius">Annuler</a>
+                        </div>
+                     </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div ng-include="'foot/foot.html'" > 
+  </div>
+    
+</div>

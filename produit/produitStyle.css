@@ -1,0 +1,91 @@
+  
+    #produit .message-pan{
+      height: 100px;
+      background-color: #b5cabd;
+      text-align: center;
+      padding-top: 10px;
+      font-size: 16px;
+    }
+
+    #produit a {
+      outline: 0;
+    }
+   
+   .piclist{
+        margin-top: 30px;
+    }
+    .piclist li{
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+    }
+    .piclist li img{
+        width: 100%;
+        height: auto;
+    }
+
+    /* custom style */
+    .picZoomer-pic-wp,
+    .picZoomer-zoom-wp{
+        border: 1px solid #fff;
+    }
+
+    #produit pre {
+        white-space: pre-wrap;       /* Since CSS 2.1 */
+        white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+        white-space: -pre-wrap;      /* Opera 4-6 */
+        white-space: -o-pre-wrap;    /* Opera 7 */
+        word-wrap: break-word;       /* Internet Explorer 5.5+ */
+        padding-left:50px;
+        padding-right: 50px; 
+    }
+
+    #produit .desc {
+        white-space: pre-wrap;       /* Since CSS 2.1 */
+        white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+        white-space: -pre-wrap;      /* Opera 4-6 */
+        white-space: -o-pre-wrap;    /* Opera 7 */
+        word-wrap: break-word;       /* Internet Explorer 5.5+ */
+        padding-left:50px;
+        padding-right: 50px; 
+    }
+
+    /* custom style */
+    .picZoomer-pic-wp,
+    .picZoomer-zoom-wp{
+        border: 1px solid #fff;
+    }
+
+    .light{
+  color:#EE7600;
+}
+
+.no-light{
+  color:gray;
+}
+
+/*****************************************************************/
+
+.rating{
+  color: #a9a9a9;
+  margin: 0;
+  padding: 0;
+}
+
+ul.rating {
+  display: inline-block;
+}
+
+.rating li {
+  list-style-type: none;
+  display: inline-block;
+  padding: 1px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  font-size:18px;
+}
+
+.rating .filled {
+  color: #21568b;
+}

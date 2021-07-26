@@ -1,0 +1,300 @@
+<div ng-controller="BoutiqueCtrl" id="categories"  ng-init="rating = star.rating + 1">
+  
+  
+  <div class="loadingPage container" ng-show="!isLoaded">
+    <div class="col-lg-12" style="margin-top:40px;">
+      <p style="text-align:center; font-size:16px; color:gray;font-style:italic;">veuillez patienter, chargement des donnees...
+      </p>
+      <p style="margin-top:50;text-align:center;">
+        <img src="assets/images/loading.gif">
+      </p>
+    </div>
+  </div>
+
+  <div class="container" ng-show="isLoaded">
+
+    <div ng-show="showMessage_ajout_favori"  class="row showMessage_ajout_detail" style="margin-top:10px;">
+        <div class="col-lg-12 message-pan" style="background-color:rgba(0,0,0,0.7);color:white">
+          <p style="">Le produit {{selectedProduct.name}} a été ajouté dans vos favoris</p>
+        </div>
+    </div>
+
+    <div ng-show="showMessage_ajout_detail"  class="showMessage_ajout_detail" style="margin-top:10px;">
+        <div class="col-lg-12 message-pan" style="background-color:rgba(0,0,0,0.7);color:white">
+          <p style="margin-bottom:10px;">Le produit {{selectedProduct.name}} a été ajouté dans votre panier avec succès </p>
+          <p style="text-align:center;"><a href="/panier"  style="color:white;background-color:#EE7600; font-weight:bold;" type="button" class="btn  btn-sm no-radius">finaliser l'achat</a></p>
+        </div>
+    </div>
+
+    <div ng-show="showMessage_ajout_BWM"  class="showMessage_ajout_detail" style="margin-top:10px;">
+        <div class="col-lg-12 message-pan" style="background-color:rgba(0,0,0,0.7);color:white">
+          <p style="margin-bottom:10px;">le produit {{selectedProduct.name}} a été ajouté dans votre panier BuyWithMe avec succes </p>
+          <p style="text-align:center;"><a href="/panierBWM"  style="color:white;border-color:;font-weight:bold" type="button" class="btn btn-warning btn-sm no-radius">finaliser votre achat #BuyWithMe</a></p>
+        </div>
+    </div>
+
+    <div ng-show="showMessage_ajout_detail_denied"  class="showMessage_ajout_detail" style="margin-top:10px;">
+        <div class="col-lg-12 message-pan" style="background-color:rgba(0,0,0,0.7);color:white">
+          <p style=" color:red;">Desole,le produit {{selectedProduct.name}} n'est plus disponible en stock, donc ne peut être ajouté dans le panier</p>
+        </div>
+    </div>
+
+    <div ng-show="showMessage_ajout_BWM_denied"  class="showMessage_ajout_detail" style="margin-top:10px;">
+        <div class="col-lg-12 message-pan" style="background-color:rgba(0,0,0,0.7);color:white">
+          <p style=" color:red;">Desole,le produit {{selectedProduct.name}} n'est plus disponible en stock, donc ne peut être ajouté dans le panier</p>
+        </div>
+    </div>
+      
+    <div  class="row" style="margin-top:10px;">
+    	<div class="col-lg-12">
+    		<span style="color:gray; font-size:12px;"><a style="color:gray;" href="/" class="links">Accueil</a></span><span   class="glyphicon glyphicon-chevron-right " style=" font-size:8px; margin-left:5px; margin-right:5px; color:gray;"></span><span style="font-size:12px;color:black; font-weight:bold;">Categorie</span>
+    	</div>
+    </div>
+
+    <div class="row titre" style="text-align:center">
+      	<div class="col-lg-12">
+        	<h3>{{boutique}} <span ng-show="filterMarque!='null'">- {{filterMarque}}<span></h3>
+        	<h5 style="color:gray; margin-top:-10px;">{{size}} produits trouvés</h5>
+        	</div>
+    </div>
+
+    
+    
+      <div class="row" style="padding-left:0px; margin-left:0px;">
+        <div class="col-lg-2 nav-gauche" style=" margin-right:10px;padding-left:0px; margin-left:0px;">
+           <div class="sidebar-nav-fixed affix" style="width: 14%;">
+            
+            <div class="col-lg-12" style="padding-left:0px; margin-left:0px;"> <h4 style="color:black; text-align: center; font-weight:bold; font-size:12px;">Marques</h4>    
+              <ul class="list-unstyled" style="font-size:11px;font-color:gray; overflow-y: auto;">
+                <li ng-repeat="marque in extractedMarque" >
+                  <a class="nav-marque"  href=" boutique.php?nom={{boutique}}&filter={{filterOption}}&minprice={{filterMinPrice}}&maxprice={{filterMaxPrice}}&marque={{marque.name}}"><span class="glyphicon glyphicon-chevron-right  " style=" font-size:8px;  margin-right:5px;"></span><span style="font-size:11px;">{{marque.name}}</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-12" style="font-weight: bold; font-size: 12px;">
+            Partager cette boutique 
+            </div>
+            <div class="col-lg-12 row " style="text-align: center;margin-top: 10px;">
+                   <ul class="social-network social-circle " >
+                         
+                          <li><a  class="icoFacebook" title="Twitter"
+                            href="#"
+                            socialshare
+                            socialshare-provider="facebook"
+                            socialshare-text="Retrouver la boutique {{boutique}} sur Ounkoun.Commander en toute securité et faite vous livrer dans de bref delais"
+                            socialshare-url="https://www.ounkoun.com/boutique.php?nom={{boutique}}"><i class="fab fa-facebook-f"></i></a></li>
+                          <li><a class="icoTwitter" title="Twitter"
+                             href="#"
+                             socialshare
+                             socialshare-provider="twitter"
+                             socialshare-text="Retrouver la boutique {{boutique}} sur Ounkoun.Commander en toute securité et faite vous livrer dans de bref delais"
+                             socialshare-url="https://www.ounkoun.com/boutique.php?nom={{boutique}}"
+                            ><i class="fab fa-twitter"></i></a>
+                          </li>  
+                    </ul>   
+              </div>
+
+          </div>
+          
+        </div>
+        
+        <div class="row col-lg-10" style="margin-top:30px;">
+          <div class=" header-produit" style="border-bottom:1px solid gray; padding-bottom:30px; margin-bottom:20px;">
+            <div class="col-lg-12">
+              <div  class="col-lg-4 col-xm-12" style="margin-top:-30px; margin-bottom:-20px;">
+                <ul  id="pagination" class="no-radius" uib-pagination previous-text="<<" next-text=">>" total-items="size" ng-model="currentPage"  max-size="maxSize1" items-per-page="40" ng-change="pageChanged()" boundary-link-numbers="false" force-ellipses="true"  class="pagination-sm" >
+                </ul>
+              </div>
+              <div class="col-lg-5 col-xm-12 slide" style="margin-top:-30px;"  >
+                <rzslider
+      				      rz-slider-model="slider.minValue"
+            				rz-slider-high="slider.maxValue"
+            				rz-slider-options="slider.options">
+      			    </rzslider>
+              </div>
+              <div class="col-lg-3 col-xm-12" style="color:#337ab7;text-align:right; ">
+                <div class="form-group" style="margin-bottom:-20px;">
+                  <span style="color:black; font-weight:10px;" for="sel1"> Trier par :</span>
+                  <select class=""  ng-change="chooseFilter(filterValue)" ng-model="filterValue">
+                    <option value="filter-by-popularity"> Popularité</option>
+                    <option value="filter-by-most-rescent"> Plus rescent</option>
+                    <option value="filter-by-price-asc"> Prix croissant</option>
+                    <option value="filter-by-price-desc"> Prix decroissant</option>
+                  </select>
+                </div> 
+              </div>
+            </div>
+          </div>
+
+          <div class=" row produit">
+          	<div class=" col-lg-3 panel panel-default panneau no-radius" ng-repeat="product in products" ng-mouseenter="cursorIn=true" ng-mouseleave="cursorIn=false" style="border-bottom:2px solid #EE7600;">
+                <div class="panel-body " style="height:390px;" >
+                  <a href="produit.php?nom={{product.name}}" class="links">
+                      <div class="img-pan"  style="text-align:center; width: 190px; height:190px;margin-bottom: 40px;">
+                       <p style="text-align:center;"><img src="assets/images/loading.gif"  ng-src="{{baseUrl}}image/{{product.idImage}}" width="190" height="220"></p>
+                      </div>
+                      <div class="presentation">
+                        <h5 style="border-bottom:1px solid gray; padding-bottom:0px; color:gray; font-size:12px;">{{product.marque.name}}
+                        </h5>
+                        <p style="font-weight:bold; font-size:12px; margin-top:-10px;">{{product.name}}</p>
+                      </div>
+                      <div style="margin-top:-12px;font-size:12px;margin-bottom:10px;">
+                        <i ng-class="product.notation.note>=1 ? 'light': 'no-light' "  class="fa fa-star fa-lg"></i>
+                        <i ng-class="product.notation.note>=2 ? 'light': 'no-light' "  class="fa fa-star fa-lg"></i>
+                        <i ng-class="product.notation.note>=3 ? 'light': 'no-light' "  class="fa fa-star fa-lg"></i>
+                        <i ng-class="product.notation.note>=4 ? 'light': 'no-light' "  class="fa fa-star fa-lg"></i>
+                        <i ng-class="product.notation.note>=5 ? 'light': 'no-light' "  class="fa fa-star fa-lg"></i>({{product.notation.total}})
+                      </div>
+                      <div class="vente-detail" style="margin-top:-10px;font-weight:bold;" ng-show="product.retailSale.length!=0">
+                        <p ng-show="!product.retailSale.isInPromotion"><span style="font-size:13px;">{{product.retailSale.price}}FCFA</span>
+                        </p>
+                        <p ng-show="product.retailSale.isInPromotion">
+                          <span style="font-size:13px; font-weight:bold;">{{product.retailSale.promotionalPrice}}FCFA</span><sub > <span style="font-size:10px;text-decoration:line-through;">{{product.retailSale.price}}FCFA</span></sub>
+                          <span class="pull-right" ng-show="product.retailSale.isInPromotion" style="border: 1px solid #EE7600;color:#EE7600;" class="pull-right">{{-(100-product.retailSale.promotionalPrice/product.retailSale.price*100)|number:0}}%</span>
+                        </p>
+                      </div>
+                      <div class="transparent-pan-detail" ng-show="product.retailSale.length!=0 && product.BWMSale.length==0  "  >
+                        <div class="col-lg-12" style="margin-top:10px;text-align:center;" >
+                          <a class="links" ng-click="$event.preventDefault();ajouterFavoris(product)" href="" style="color:white;"><i  class="fa fa-heart fa-lg"></i><span style="margin-top:-20px;">  Ajouter le produit dans vos favoris</span> </a>
+                        </div>
+
+                        <div class="col-lg-12" style="margin-top:10px;text-align:center;" >
+                          <a class="links" launch-modal  data-toggle="modal" href="" ng-click="$event.preventDefault();select(product)"  style="color:white;"><i  class="fa fa-star fa-lg"></i><span style="margin-top:-20px;">  Noter ou commenter  le produit </span> </a>
+                        </div>
+
+                        
+                        <div class="col-lg-12" style="margin-top:10px;" >
+                          <p style="text-align:center;"><button  ng-click="$event.preventDefault();acheterEndetail(product)" style="background-color:#EE7600;color:white;border-color:;font-weight:bold;width:175px;" type="button" class=" btn btn-sm no-radius">Ajouter dans le panier</button></p>
+                        </div>
+                      </div>
+                  </a>
+                </div>   
+            </div>
+      	  </div><br>
+
+          <div class=" row " style="height:40px; text-align: center;margin-bottom:40px;">
+          	<div  class="col-lg-12 col-xm-12" style="margin-top:-30px; margin-bottom:-20px;">
+                <ul  id="pagination" class="no-radius" uib-pagination previous-text="<<" next-text=">>" total-items="size" ng-model="currentPage"  max-size="maxSize" items-per-page="40" ng-change="pageChanged()" boundary-link-numbers="true"  class="pagination-sm" >
+                </ul>
+              </div> 
+          </div> 
+        </div>
+      </div>
+
+
+      <div class="modal fade" id="avis" role="dialog" style="margin-top:50px; color:black;">
+          <div class="modal-dialog">
+            <div class="modal-content" style="height:520px;">
+              <div class="modal-header" style="background-color:gray;text-align:center;">
+                <button type="button" class="close" data-dismiss="modal">x</button>
+                <h4 class="modal-title" style="color:white">Noter et commenter le produits</h4>
+              </div>
+              <div class="modal-body">
+                <div class="loadingPage" ng-show="isLoadingNotation">
+                  <div class="col-lg-12" style="margin-top:40px;">
+                    <p style="text-align:center; font-size:16px; color:gray; font-style:italic;">Enregistrwmwnt de la notation,veuillez patienter...<p>
+                    <p style="margin-top:50;text-align:center;">
+                      <img src="assets/images/loading.gif">
+                    </p>
+                  </div>
+                </div>
+                <div ng-show="!isLoadingNotation" class="row">
+
+                    <div class="col-lg-4">      
+                      <p style="text-align:center;"><img src="assets/images/loading.gif"  ng-src="{{baseUrl}}image/{{selectedProduct.idImage}}" width="120" height="120"></p>         
+                    </div>
+                    <div class="col-lg-6"> 
+                      <div class="presentation">
+                        <h5 style=" padding-bottom:0px; color:gray; font-size:12px;">{{selectedProduct.marque.name}}
+                        </h5>
+                        <p style="font-weight:bold; font-size:12px; margin-top:-10px;">{{selectedProduct.name}}</p>
+                      </div>
+                      <div style="margin-top:-12px;margin-bottom:5px; font-size:12px;">
+                          <i ng-class="selectedProduct.notation.note>=1 ? 'light': 'no-light' "  class="fa fa-star fa-lg"></i>
+                          <i ng-class="selectedProduct.notation.note>=2 ? 'light': 'no-light' "  class="fa fa-star fa-lg"></i>
+                          <i ng-class="selectedProduct.notation.note>=3 ? 'light': 'no-light' "  class="fa fa-star fa-lg"></i>
+                          <i ng-class="selectedProduct.notation.note>=4 ? 'light': 'no-light' "  class="fa fa-star fa-lg"></i>
+                          <i ng-class="selectedProductnotation.note>=5 ? 'light': 'no-light' "  class="fa fa-star fa-lg"></i>({{selectedProduct.notation.total}})
+
+                      </div>
+                    </div>
+
+                    <div  class="divider1"></div>
+
+                    <div class="col-lg-12">
+                      <div class="col-lg-6">
+                        <div class="col-lg-12"> <i style="color:#EE7600"  class="fa fa-star fa-lg"></i> Je deteste</div>
+                        <div class="col-lg-12"><i style="color:#EE7600" class="fa fa-star fa-lg"></i><i style="color:#EE7600"  class="fa fa-star fa-lg"></i> Je n'aime pas</div>
+                        <div class="col-lg-12"><i  style="color:#EE7600" class="fa fa-star fa-lg"></i><i style="color:#EE7600" class="fa fa-star fa-lg"></i><i style="color:#EE7600" class="fa fa-star fa-lg"></i> Bon produit</div>
+                        <div class="col-lg-12"><i style="color:#EE7600" class="fa fa-star fa-lg"></i><i style="color:#EE7600"  class="fa fa-star fa-lg"></i><i style="color:#EE7600"  class="fa fa-star fa-lg"></i><i style="color:#EE7600" class="fa fa-star fa-lg"></i> J'aime</div>
+                        <div class="col-lg-12"><i style="color:#EE7600" class="fa fa-star fa-lg"></i><i style="color:#EE7600" class="fa fa-star fa-lg"></i><i style="color:#EE7600" class="fa fa-star fa-lg"></i><i style="color:#EE7600"  class="fa fa-star fa-lg"></i><i style="color:#EE7600"  class="fa fa-star fa-lg"></i> J'adore</div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="star-rating" star-rating rating-value="rating" data-max="5" on-rating-selected="rateFunction(rating)"></div>
+                        <p style="margin-top:10px;">
+                          <button  ng-click="sendNotation()"  style="background-color:;color:white;border-color:;font-weight:bold;width:175px;" type="button" class="btn btn-primary btn-sm no-radius">Valider votre notation
+                          </button>
+                        </p>
+                      </div>
+                    </div>
+
+                    <div  class="divider2"></div>
+                    <div class="col-lg-12" style="margin-top:40px;">
+                      <div class=" col-lg -12 form-group">
+                        <label for="exampleFormControlTextarea2">votre commentaire</label>
+                        <textarea ng-model="commentaire" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3"></textarea>
+                      </div>
+                      <p>
+                          <button  ng-click="sendComment()"  style="background-color:;color:white;border-color:;font-weight:bold;" type="button" class="btn btn-primary btn-sm no-radius">Sauvegarder le commentaire
+                          </button>
+                        </p>
+                    </div>
+                </div> 
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="modal fade" id="taille" role="dialog" style="margin-top:50px; color:black;">
+        <div class="modal-dialog">
+          <div class="modal-content" style="height:520px;">
+            <div class="modal-header" style="background-color:gray;text-align:center;">
+                <button type="button" class="close" data-dismiss="modal">x</button>
+                <h4 class="modal-title" style="color:white">Choix de la taille produits</h4>
+            </div>
+            <div ng-show="isLoadingSizeModal">
+              <p style="text-align:center; font-size:16px; color:gray;font-style:italic;">veuillez patienter, chargement des données...
+              </p>
+              <p style="margin-top:50;text-align:center;">
+                <img src="assets/images/loading.gif">
+              </p>
+            </div> 
+            <div ng-show="!isLoadingSizeModal" class="modal-body">
+              <div style="text-align:center;color:gray;margin-bottom: 20px;">Veuillez ajouter  la taille du produit que vous desirer dans le panier.
+              </div>
+              <div  ng-repeat="item in otherModels" style=" margin-bottom: 10px">
+
+                <div class="col-lg-12" style=";border-bottom: 1px solid gray;padding: 10px 10px 10px 10px;">
+                  <div class="col-lg-6">
+                      {{item.name}}
+                  </div>
+                  <div class="col-lg-6">
+                      <button  ng-click="$event.preventDefault();acheterEndetail(item)" style="background-color:#EE7600;color:white;width:175px;" type="button" class=" btn btn-sm no-radius">Ajouter dans le panier</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div ng-include="'foot/foot.html'"> 
+  </div>
+</div>
+
+
+
+
+
+
+

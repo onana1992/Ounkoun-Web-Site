@@ -1,0 +1,131 @@
+<div>
+      
+  <div ng-controller="ConfirmationCommandeCtrl" id="commande" >
+    <div class="container" style="margin-top:20px;">
+      
+      <div  class="row" style="margin-bottom: 10px;">
+        <div class="col-lg-12">
+          <span style="color:gray; font-size:12px;"><a style="color:gray;" href="/" class="links">Accueil</a></span><span   class="glyphicon glyphicon-chevron-right " style=" font-size:8px; margin-left:5px; margin-right:5px; color:gray;"></span><span style="font-size:12px;"><span style="color:black; font-weight:bold;" class="links">Confirmation  de la commande</span></span>
+        </div>
+      </div>
+      
+      <div class="pan-mode-livraison col-lg-12"  style=" background-color: white;; padding: 20px 20px 20px 20px; height: 490px;">
+              <h4 style="text-align:center; color:#EE7600;">Commande Passée avec Succès </h4>
+              <p style=" font-size:14px;">{{firstName}} {{name}} votre commande que éte enregistrée avec succès, vous serez dans les prochains instants 
+              contacté par notre service client pour confirmer votre commande.Nous vous remercions de la confiance que vous nous faite</p>
+              <br/>
+              <div class="row" style="text-align: center; margin-bottom: 20px;">
+                <div class="col-lg-12">
+                  <h4 style="color:#EE7600">Payer votre facture maintenant Via:</h4>
+                </div>
+              </div>
+              
+              <div class="row">
+                
+                <div class="col-lg-4" style="text-align:center;margin-bottom: 20px;" >
+                   <img src="assets/images/orange-money.jpg" height="30%" width="30%">
+                </div>
+
+                <div class="col-lg-4" style="text-align:center;margin-bottom: 20px;">
+                   <img src="assets/images/MTN-Mobile-Money.png" height="30%" width="30%">
+                </div> 
+
+                <div class="col-lg-4" style="text-align:center;margin-bottom: 20px;">
+                   <img src="assets/images/logoeu.jpg" height="30%" width="30%">
+                </div> 
+              </div>
+              <div class="row">
+                <div class="col-lg-4" style="text-align:center;margin-bottom: 20px;">
+                   <img src="assets/images/wari-visa.png" height="30%" width="30%">
+                </div> 
+
+                <div class="col-lg-4" style="text-align:center;margin-bottom: 20px;">
+                   <img src="assets/images/dohone-account.png" height="30%" width="30%">
+                </div> 
+
+                <div class="col-lg-4" style="text-align:center;margin-bottom: 20px;">
+                   <img src="assets/images/wari-card.png" height="30%" width="30%">
+                </div>
+              </div>
+
+              <div class="row" style="margin-top: 20px; text-align: center;">
+
+                <form method="post" novalidate #form1="ngForm" action="https://www.my-dohone.com/dohone/pay"  name="someForm" >
+
+                    <input type="hidden" name="cmd" value="start">
+                    <!--Cette Valeur est à ne pas changer et elle est Obligatoire -->
+
+                    <input type="" name="rN" ng-model="rN" ng-show="false">
+                    <!--le nom de votre client qui effectue le paiement.c'est facultatif.  -->
+
+                    <input type="" name="rT"  ng-model="rT" ng-show="false">
+
+                    <!--Numéro Téléphone du client qui effectue le paiement (Obligatoire) -->
+
+                    <!-- <input type="hidden" name="rE" value="onanajunior92@gmail.fr"> -->
+                    <!--Adresse email du client qui effectue le paiement.c'est facultatif.-->
+
+                    <input type="hidden" name="rH" value="ED155M321925">
+                    <!--Votre Code-marchand que vous avez reçu par mail (Obligatoire) -->
+
+                    <input type="" name="rI" ng-model="rI" ng-show="false">
+                    <!--Le numéro de votre commande. Si votre système ne gère pas de numéro de commande, vous pouvez enlevez ce champs. c'est facultatif. -->
+
+                    <input type="" name="rMt"  ng-model="rMt" ng-show="false">
+
+                    <!-- <input type="hidden" name="rMt" value="300"> -->
+                    
+                    <!--Montant TOTAL des achats (Obligatoire). C’est le montant qui devra être payé par votre client. Par défaut la dévise de ce montant est l'euro, Sauf si vous précisez une autre devise sous le paramètre 'rDvs' ci-après. -->
+
+                    <input type="hidden" name="rDvs" value="XAF">
+                    <!--La devise correspondante au montant que vous avez donné. Ce paramètre est facultatif. Dans le cas où vous ne précisez pas ce paramètre, la devise est EUR. Vous avez le choix entre 3 devises uniquement : EUR, XAF, USD -->
+
+
+                    <!-- <input type="hidden" name="rOnly" value="1, 2, 3"> --> 
+
+                    <!-- Ceci est optionnel. Si vous souhaitez que votre API n’affiche que certains opérateurs, vous pouvez préciser ces opérateurs ici. 1=MTN, 2=Orange, 3=Express Union, 5=Visa via UBA, 10=Dohone, 14= Visa via Wari, 15=Wari card, 16=VISA/MASTERCARD, 17=YUP. 
+                     -->
+
+                    <input type="hidden" name="rLocale" value="fr">
+                    <!--le choix de la langue. fr ou en-->
+
+                    <input type="hidden" name="source" value="ounkoun"> 
+                    <!--Le nom commercial de votre site (Obligatoire) -->
+
+                    <input type="hidden" name="endPage" value="http://www.ounkoun.com">
+                    <!--Adresse de redirection en cas de SUCCESS de paiement (Obligatoire) -->
+
+                    <input type="hidden" name="notifyPage" value="https://node16375-ounkoun1.hidora.com/backend/web/app_dev.php/paiement">
+                    <!--Adresse de notification automatique de votre site en cas de succès de paiement-->
+
+                    <input type="hidden" name="cancelPage" value="http://www.ounkoun.com">
+                    <!--Adresse de redirection en cas de Annulation de paiement par le client -->
+
+                    <!-- <input type="hidden"name="logo"value="http://www.ounkoun.com/votre-logo.png"> -->
+                    <!--une adresse url menant au logo de votre site si vous voulez voir apparaitre ce logo pendant le paiement (Facultatif) -->
+
+                    <input type="hidden" name="motif" value="paiement d’un article">
+                    <!--le motif est facultatif. Si il est précisé, il sera inscrit dans votre historique DOHONE version excel. Ceci peut être important pour votre comptabilité. -->
+
+
+                    <div class="col-lg-3" style="margin-right: 20px;">
+                    </div>
+
+                    <div class="col-lg-3" >
+                      <p style="text-align:center;" ><a href="" onclick="document.someForm.submit();"  style="color:white;background-color: #EE7600; color:white;  font-size: 14px;" type="button" class="btn  btn-sm   no-radius">Payer votre facture maintenant</a>
+                      </p>
+                    </div>
+
+                     <div class="col-lg-3">
+                      <p style="text-align:center;" ><a href="index.php"  style="color:white;background-color: #EE7600; color: white;  font-size: 14px;" type="button" class="btn  btn-sm   no-radius">Poursuivre les achats</a>
+                      </p>
+                    </div> 
+                </form>
+                
+                
+              </div>
+              
+      </div>     
+    </div>
+  </div>
+</div>

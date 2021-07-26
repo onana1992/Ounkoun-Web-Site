@@ -1,0 +1,130 @@
+<div ng-controller="AideLivraisonCtrl" class="monCompte">
+	<div class="container" style="margin-top:20px;">
+		<div  class="row" >
+          <div class="col-lg-12">
+            <span style="color:gray;font-size:12px;">Accueil</span><span class="glyphicon glyphicon-chevron-right " style=" font-size:10px; margin-left:5px; margin-right:5px; color:gray;"></span><span style="color:black;font-weight:bold;font-size:12px;">Aide livraison</span>
+          </div>
+    </div>
+    <div class="row" style="margin-top:30px;">
+    		<div class="col-lg-12">
+      			<h4 style="height:30px;border-bottom:1px solid gray; margin-bottom:20px;">Aide</h4>
+      		</div>
+    </div>
+    <div class="row" style="margin-bottom:20px;">
+      
+      <div class="col-lg-3 nav-gauche">
+        <ul class="list-unstyled">
+            <li> <a href="aidePaiement.php">PAIEMENT</a></li>
+            <li> <a style="color:#EE7600;" href="aideLivraison.php">LIVRAISON</a></li>
+            <li> <a  href="aideRetour.php">RETOUR ET REMBOURSEMENT</a></li>
+            <li> <a href="aideAPropos.php">A PROPOS</a> </li>
+        </ul>
+      </div>
+
+      <div class="col-lg-8">
+        <h4 style="height:30px;border-bottom:1px solid gray; margin-bottom:20px; color:#EE7600">
+          Options et  delais de livraison
+        </h4>
+
+        <h4 style="color:#EE7600;text-align: center;"> Livraison à domicile  </h4>
+
+        <p style="text-align: justify;">
+          Nous livrons à domicile pour le moment uniquement dans les localités de la ville de <span style="font-weight: bold;">Yaoundé et ses environs</span>.Le client 
+          lors de la validation de sa commande devra choisir l'endroit où il sohaite etre livré.Il sera effectivement  appelé pour plus details par le liveur le jour de la livraison de sa commande. 
+        </p>
+
+        <p style="text-align: justify;">
+          <span style="font-weight: bold;">Delais des livraison:</span> Nous livrons entre <span style="font-weight:">  12 et  24h </span>  aprés la confirmation de votre commande.Les livraisons se font de lundi à vendredi de 08h à 18h et samedi de 08h à 15h.
+        </p>
+
+
+          <h4 style="color:#EE7600;text-align: center;">Livraison par expédition aux points relais </h4>
+
+          <p style="text-align: justify;">
+            Nous livrons également dans l’intégralité du territoire Cameroun par expédition aux points relais grâce à notre partenaire <span style="font-weight:"> AfrikRelay </span>. Lors de la validation de sa commande, le client souhaitant se faire livrer par expédition à un point de relais de sa ville devra simplement choisir l’option de livraison au point de relais et choisir ensuite le point relais. Le client sera informé de l’arrivé de son colis au point de relais et devra ensuite s’y rendre pour le récupéré. 
+          </p>
+
+          <p style="text-align: justify; font-weight: bold;">
+            NB: Pour toutes les commandes livrables par expédition aux points de relais, le montant et les frais de livraison devront être payer avant l'expédition. 
+          </p>
+
+          <p style="text-align: justify;">
+            <span style="font-weight: bold;">Delais des livraison:</span> Nous expedions votre commande dans  <span style="font-weight:">  un delais de  24h </span>  aprés la confirmation et le paiement de votre commande.Les expeditions se font  du lundi à samedi.
+          </p>
+
+          <br/>
+
+          <h4 style="height:30px;border-bottom:1px solid gray; margin-bottom:20px; color:#EE7600">
+          Frais  de livraison
+          </h4>
+
+
+        <h4 style="color:#EE7600;text-align: center;"> Livraison à domicile  </h4>
+
+        <p style="text-align: justify;">
+        
+        <table >
+          <tr>
+            <th>Localité</th>
+            <th>Poids du colis</th>
+            <th>Prix</th>
+          </tr>
+          <tr>
+            <td rowspan="3">Yaoundé</td>
+            <td >Petit</td>
+            <td >1500 FCFA</td>
+          </tr>
+
+          <tr>
+            <td >Moyen</td>
+            <td >2000 FCFA</td>
+          </tr>
+
+          <tr>
+            <td >Grand</td>
+            <td >25000 FCFA</td>
+          </tr>
+
+        </table>          
+
+
+
+        </p>
+
+
+
+          <h4 style="color:#EE7600;text-align: center;">Livraison par expédition aux points relais </h4>
+
+          <p style="text-align: justify;">
+
+            <table class="table table-bordered">
+          <tr>
+            <th>Localité</th>
+            <th>Poids du colis</th>
+            <th>Prix</th>
+          </tr>
+          <tr>
+            <td rowspan="3">Yaoundé </td>
+            <td >Petit</td>
+            <td >1500 FCFA</td>
+          </tr>
+
+          <tr>
+            <td >Moyen</td>
+            <td >2000 FCFA</td>
+          </tr>
+
+          <tr>
+            <td >Grand</td>
+            <td >25000 FCFA</td>
+          </tr>
+
+        </table>  
+          </p>
+  
+      </div>
+        
+    </div>
+  </div>
+  <div ng-include="'foot/foot.html'" > </div>
+</div>
